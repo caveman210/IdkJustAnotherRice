@@ -1,0 +1,70 @@
+2025-10-24 09:06:33.731 [info] Extension host with pid 2217 started
+2025-10-24 09:06:33.731 [info] Skipping acquiring lock for /home/georg/.config/Code - OSS/User/workspaceStorage/6d5015d0262a63397451dae55fce67fb.
+2025-10-24 09:06:34.071 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2025-10-24 09:06:34.192 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2025-10-24 09:06:34.303 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2025-10-24 09:06:34.378 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2025-10-24 09:06:34.491 [info] Eager extensions activated
+2025-10-24 09:06:34.520 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2025-10-24 09:06:34.523 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2025-10-24 09:06:34.561 [info] ExtensionService#_doActivateExtension Catppuccin.catppuccin-vsc-icons, startup: false, activationEvent: 'onStartupFinished'
+2025-10-24 09:06:34.712 [info] ExtensionService#_doActivateExtension GitHub.copilot-chat, startup: false, activationEvent: 'onStartupFinished'
+2025-10-24 09:06:35.154 [info] ExtensionService#_doActivateExtension yandeu.five-server, startup: false, activationEvent: 'onStartupFinished'
+2025-10-24 09:06:35.276 [error] Error: Extension 'GitHub.copilot-chat' CANNOT use API proposal: inlineCompletionsAdditions.
+Its package.json#enabledApiProposals-property declares:  but NOT inlineCompletionsAdditions.
+ The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api GitHub.copilot-chat
+
+Error: Extension 'GitHub.copilot-chat' CANNOT use API proposal: inlineCompletionsAdditions.
+Its package.json#enabledApiProposals-property declares:  but NOT inlineCompletionsAdditions.
+ The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api GitHub.copilot-chat
+	at T (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:106:33255)
+	at Object.onDidChangeCompletionsUnificationState (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:199:110179)
+	at ag.event (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:583:14162)
+	at ag.onFirstObserverAdded (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:14781)
+	at ag.addObserver (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:1342)
+	at xb.readObservable (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:5288)
+	at ag.read (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:491)
+	at xb._runFn (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:583:13992)
+	at xb._run (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:4043)
+	at new xb (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:3181)
+	at zi (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:422:5980)
+	at new P2 (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:583:13977)
+	at r._createInstance (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:2146)
+	at r.createInstance (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:1586)
+	at create (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:753)
+	at r.invokeFunction (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:942)
+	at new T0 (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:886)
+	at r._createInstance (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:2146)
+	at r.createInstance (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:1586)
+	at /home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:1931
+	at async cKe (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:1858)
+	at async _b.n (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:13382)
+	at async _b.m (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:13345)
+	at async _b.l (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:12801)
+	at Timeout._onTimeout (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:386:12)
+	at listOnTimeout (node:internal/timers:588:17)
+	at process.processTimers (node:internal/timers:523:7)
+2025-10-24 09:06:35.285 [info] ExtensionService#_doActivateExtension vscode.github-authentication, startup: false, activationEvent: 'onAuthenticationRequest:github'
+2025-10-24 09:06:35.318 [info] ExtensionService#_doActivateExtension vscode.microsoft-authentication, startup: false, activationEvent: 'onAuthenticationRequest:microsoft'
+2025-10-24 09:06:36.258 [error] Error: Extension 'GitHub.copilot-chat' CANNOT use API proposal: findFiles2.
+Its package.json#enabledApiProposals-property declares:  but NOT findFiles2.
+ The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api GitHub.copilot-chat
+	at T (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:106:33255)
+	at Object.findFiles2 (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:199:117954)
+	at I5.findFiles (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:1854:14853)
+	at I5._findFilesWithDefaultExcludesAndExcludes (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:717:10812)
+	at I5.findFilesWithDefaultExcludes (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:717:10503)
+	at w5.addWorkspace (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:1856:10396)
+	at /home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:1856:9998
+	at w5.init (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:1856:10015)
+	at /home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:2371
+	at r.invokeFunction (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:412:942)
+	at WJt (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:2342)
+	at cKe (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:421:1844)
+	at HEn (/home/georg/.vscode-oss/extensions/github.copilot-chat-0.31.4-universal/dist/extension.js:2865:8425)
+	at $y.kb (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:116:15342)
+	at $y.jb (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:116:15087)
+	at file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:116:13245
+	at async _b.n (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:13382)
+	at async _b.m (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:13345)
+	at async _b.l (file:///usr/lib/code/out/vs/workbench/api/node/extensionHostProcess.js:112:12801)

@@ -1,0 +1,164 @@
+{
+  "position": "bottom",
+  "margin-bottom": 4,
+//  "margin-top": 3,
+  "margin-left": 10,
+  "margin-right": 10,
+  "height": 30,
+//  "modules-left": [
+//    "custom/apps",
+//    "custom/terminal",
+//    "custom/discord",
+//    "custom/obsidian",
+//    "hyprland/workspaces",
+//  ],
+  "modules-left": [
+    "clock",
+    "hyprland/workspaces",
+  ], 
+//  "modules-center": [
+//    "custom/notification",
+//    "clock",
+//  ],
+  "modules-center": [
+    "custom/notification",
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "battery",
+    "bluetooth",
+    "custom/power",
+  ],
+  "custom/apps": {
+    "format": " ",
+    "tooltip": true,
+    "tooltip-format": "Apps",
+    "interval": 0,
+    "on-click": "sherlock"
+  },
+// "custom/weather": {
+//    "format": " {}",
+//    "tooltip": true,https://wttr.in/changanacheri
+//    "interval": 30,
+//    "exec": "$HOME/.config/waybar/scripts/open_meteo.py",
+//    "on-click": 'foot -e ${SHELL:-sh} -c "sleep 0.2; $HOME/.config/waybar/scripts/weather_popup.sh; exec${SHELL:-sh}"',
+//    "return-type": "json"
+//  },
+  "custom/terminal": {
+    "format": " ",
+    "tooltip": true,
+    "tooltip-format": "Terminal",
+    "interval": 0,
+    "on-click": "foot --title greetyterm -e ${SHELL:-sh} -c 'sleep 0.25; fastfetch; exec ${SHELL:-sh}'" 
+    },
+  "custom/discord": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "Discord",
+    "interval": 0,
+    "on-click": "discord" 
+    },
+  "custom/obsidian": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "Obsidian",
+    "interval": 0,
+    "on-click": "obsidian" 
+    },
+  "custom/notification": {
+    "tooltip": true,
+    "tooltip-format": "SwayNC Client",
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "active": " ",
+    },
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "*": 3, // 5 workspaces by default on every monitor
+      "HDMI-A-1": 3 // but only three on HDMI-A-1
+    },
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%Y-%m-%d} "
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": {
+      "default": ["󰂎","󰁻","󰁾","󰂀","󰁹"],
+      "charging": ["󰢟","󰂆","󰂉","󰢞"],
+    },
+  },
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": " ⚠ ",
+    "on-click": "foot --title nmtui -e ${SHELL:-sh} -c 'nmtui'"
+  },
+  "bluetooth": {
+    "format": " {status}",
+    //"format-connected": " {status} {format_source}",
+    "tooltip": true,
+    "tooltip-format": "󰂱 {device_alias}",
+    "tooltip-format-connected-battery": "Battery: {device_battery_percentage}%",
+    "on-click": "foot --title greetyterm -e ${SHELL:-sh} -c 'bluetuith'"
+  },
+  "pulseaudio": {
+    "format": "{icon}  {volume}% ",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-bluetooth-muted": " {icon} ",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "control"
+  },
+  "custom/power": {
+    "format": "  ",
+    "tooltip": true,
+    "tooltip-format": "Power menu",
+    "interval": 0,
+    "on-click": "wlogout",
+  }
+}

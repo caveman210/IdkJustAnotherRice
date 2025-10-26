@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z "$WAYLAND_DISPLAY" ]; then
+	notify-send "Hyprland bug" "\$WAYLAND_DISPLAY not set"
+	export WAYLAND_DISPLAY=wayland-1
+fi
+
+output=$(hyprshot -m region --silent --raw | tesseract - -)
+if [ -n "$output" ]; then
+	echo -n "$output" | wl-copy
+	notify-send -i dialog-information "OCR" "Copied \"$output\" to clipboard"
+else
+	notify-send -i dialog-error "OCR" "Could not find any text in region"
+fi

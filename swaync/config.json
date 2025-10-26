@@ -1,0 +1,164 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "center",
+  "positionY": "top",
+  "control-center-margin-top": 10,
+  "control-center-margin-bottom": 0,
+  "control-center-margin-right": 0,
+  "control-center-margin-left": 0,
+  "notification-icon-size": 64,
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "timeout": 10,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "fit-to-screen": false,
+  "control-center-width": 500,
+  "control-center-height": 800,
+  "notification-window-width": 500,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+  "clear-on-action": false,
+  "close-on-clear": false,
+  "layer": "overlay",
+  "inhibit-when-fullscreen": false,
+  "inhibit-when-placed": false,
+
+  "scripts": {
+    "example-script": {
+      "exec": "echo 'Do something...'",
+      "urgency": "Normal"
+    }
+  },
+  "notification-visibility": {
+    "example-name": {
+      "state": "muted",
+      "urgency": "Low",
+      "app-name": "Spotify"
+    }
+  },
+  "widgets": [
+    "menubar",
+    "title",
+    "dnd",
+    "notifications",
+    "buttons-grid",
+    "backlight",
+    "backlight#KB",
+    "volume",
+    "mpris"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "mpris": {
+      "image-size": 96,
+      "image-radius": 12
+    },
+    "backlight": {
+      "label": "",
+      "device": "intel_backlight",
+      "min": 10
+    },
+    "backlight#KB": {
+      "label": " ",
+      "device": "asus::kbd_backlight",
+      "subsystem": "leds"
+    },
+    "volume": {
+      "label": ""
+    },
+    "notifications": {
+      "notification-icon-size": 48,
+      "notification-body-image-height": 150,
+      "notification-body-image-width": 250,
+      "clear-all-button": true,
+      "clear-all-button-text": "Clear All",
+      "control-center-height": 600,
+      "control-center-width": 500,
+      "notification-window-width": 500,
+      "collapsed": false,
+      "max-notifications": 0,
+      "expand-selected": true,
+      "infinite-scroll": true,
+      "notification-body-margin": 10,
+      "notification-body-padding": 15,
+      "notification-gap": 8,
+      "notification-border-radius": 12,
+      "notification-border-size": 1
+    },
+    "menubar": {
+      "menu#power-buttons": {
+        "label": "",
+        "position": "right",
+        "actions": [
+          {
+            "label": " Reboot",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": " Lock",
+            "command": "hyprlock"
+          },
+          {
+            "label": " Logout",
+            "command": "hyprctl dispatch exit"
+          },
+          {
+            "label": " Shut down",
+            "command": "systemctl poweroff"
+          }
+        ]
+      },
+      "menu#powermode-buttons": {
+        "label": "",
+        "position": "left",
+        "actions": [
+          {
+            "label": "Performance",
+            "command": "sudo tuned-adm profile performance"
+          },
+          {
+            "label": "Balanced",
+            "command": "sudo tuned-adm profile balanced"
+          },
+          {
+            "label": "Power-saver",
+            "command": "sudo tuned-adm profile powersave"
+          }
+        ]
+      },
+      "buttons#topbar-buttons": {
+        "position": "left",
+        "actions": [
+          {
+            "label": "",
+            "command": "grim"
+          }
+        ]
+      }
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "直",
+          "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'nmtui'"
+        },
+        {
+          "label": "",
+          "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'bluetuith'"
+        }
+      ]
+    }
+  }
+}

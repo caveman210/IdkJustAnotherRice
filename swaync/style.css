@@ -1,0 +1,393 @@
+/*
+ * vim: ft=less
+ */
+
+@import "stylesheet.css";
+
+@define-color noti-border-color rgba(255, 255, 255, 0.1);
+@define-color noti-bg @purpleb;
+@define-color noti-bg-alt @blueb;
+@define-color noti-fg #E5E9F0;
+@define-color noti-bg-hover @hazey;
+@define-color noti-close-bg rgba(255, 255, 255, 0.1);
+@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
+@define-color noti-urgent @orange2;
+
+* {
+  font-family: "GohuFont 14 Nerd Font", "SF Hello", "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  color: @noti-fg;
+}
+
+/* SLIDER FIX */
+scale trough {
+  background: @noti-bg-alt;
+  border-radius: 8px;
+  min-height: 12px;
+}
+
+scale highlight {
+  background: @pinkey;
+  border-radius: 8px;
+}
+
+scale slider {
+  background: @lavendr;
+  border-radius: 50%;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+scale slider:hover {
+  background: @pinkey;
+}
+
+/* CONTROL CENTER BACKGROUND - NO BLUR */
+.control-center {
+  background-color: @noti-bg-alt;
+  margin: 0;
+  padding: 12px;
+  border: none;
+  box-shadow: none;
+  border-radius: 15px;
+}
+
+window#control-center {
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* FIX SCROLLING - MAKE NOTIFICATIONS AREA SCROLLABLE */
+.control-center-list {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  max-height: 500px; /* Limit height to prevent full pane scrolling */
+  overflow-y: auto;
+}
+
+/* Hide scrollbar but keep scrolling */
+.control-center-list scrollbar {
+  opacity: 0;
+}
+
+.control-center-list scrollbar slider {
+  opacity: 0;
+}
+
+.control-center-list scrollbar trough {
+  opacity: 0;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+.blank-window {
+  background: transparent;
+}
+
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* NOTIFICATIONS WITH GLASS EFFECT */
+.notification {
+  border-radius: 15px;
+  margin: 6px 0px;
+  padding: 0;
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.critical {
+  background: linear-gradient(135deg, rgba(243, 82, 80, 0.9), rgba(243, 82, 80, 0.7));
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 12px;
+  border-radius: 15px;
+  margin: 0;
+}
+
+.close-button {
+  background: @noti-close-bg;
+  color: @orange2;
+  padding: 4px;
+  border-radius: 50%;
+  margin: 8px;
+  min-width: 24px;
+  min-height: 24px;
+  border: none;
+}
+
+.close-button:hover {
+  background: @noti-close-bg-hover;
+}
+
+.notification-default-action,
+.notification-action {
+  padding: 8px 12px;
+  margin: 0;
+  background: rgba(12, 9, 37, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: @lavendr;
+  border-radius: 8px;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+}
+
+.notification-action:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.notification-action:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.summary {
+  font-size: 16px;
+  font-weight: bold;
+  color: @pinkey;
+}
+
+.time {
+  font-size: 14px;
+  color: @lavendr;
+  margin-right: 8px;
+}
+
+.body {
+  font-size: 15px;
+  color: @lavendr;
+}
+
+.top-action-title {
+  color: @pinkey;
+}
+
+.widget-title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: @pinkey;
+}
+
+.widget-title button {
+  background: @noti-bg;
+  border: 1px solid @noti-border-color;
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: @lavendr;
+}
+
+.widget-title button:hover {
+  background: @noti-bg-hover;
+  color: @pinkey;
+}
+
+.widget-dnd {
+  margin: 0 0 12px 0;
+  color: @pinkey;
+}
+
+.widget-dnd switch {
+  background: @noti-bg;
+  border: 1px solid @noti-border-color;
+  border-radius: 12px;
+  min-width: 40px;
+  min-height: 20px;
+}
+
+.widget-dnd switch:checked {
+  background: @pinkey;
+}
+
+.widget-dnd switch slider {
+  background: @lavendr;
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+  margin: 2px;
+}
+
+/* VOLUME AND BRIGHTNESS - GLASS EFFECT */
+.widget-volume, .widget-backlight {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 12px;
+  color: @lavendr;
+}
+
+.widget-backlight#KB {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 12px;
+  color: @lavendr;
+}
+
+/* POWER BUTTONS - GLASS EFFECT */
+.power-buttons {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+.power-buttons button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: @lavendr;
+  margin: 3px;
+  min-width: 50px;
+  min-height: 40px;
+  transition: all 0.2s ease-in-out;
+}
+
+.power-buttons button:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(243, 77, 117, 0.3);
+}
+
+.menu-button-bar button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 10px;
+  color: @lavendr;
+  margin: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-button-bar button:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(243, 77, 117, 0.3);
+}
+
+/* BUTTONS GRID - GLASS EFFECT, SMALLER HEIGHT */
+.widget-buttons-grid {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+.widget-buttons-grid button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 8px; /* Smaller padding for reduced height */
+  color: @lavendr;
+  margin: 3px;
+  min-height: 35px; /* Reduced height */
+  transition: all 0.2s ease-in-out;
+}
+
+.widget-buttons-grid button:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(243, 77, 117, 0.3);
+}
+
+/* POWER MODE BUTTONS - GLASS EFFECT */
+.powermode-buttons {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+.powermode-buttons button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 10px;
+  color: @lavendr;
+  margin: 2px;
+  min-height: 35px;
+  transition: all 0.2s ease-in-out;
+}
+
+.powermode-buttons button:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(243, 77, 117, 0.3);
+}
+
+.widget-mpris {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 10px;
+}
+
+.widget-mpris label {
+  color: @pinkey;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.widget-mpris label:last-child {
+  color: @lavendr;
+  font-size: 14px;
+}
+
+/* MENUBAR - GLASS EFFECT */
+.widget-menubar {
+  background: linear-gradient(135deg, rgba(12, 9, 37, 0.8), rgba(13, 2, 60, 0.8));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 0 0 8px 0;
+  padding: 6px;
+}
+
+.widget-menubar button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 10px;
+  color: @lavendr;
+  margin: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+.widget-menubar button:hover {
+  background: linear-gradient(135deg, rgba(243, 77, 117, 0.3), rgba(202, 169, 233, 0.2));
+  color: @pinkey;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(243, 77, 117, 0.3);
+}
