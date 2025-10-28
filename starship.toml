@@ -20,7 +20,7 @@ style_root = "bold #f38ba8"
 
 [directory]
 style = "bold #f9e2af"
-truncation_length = 3
+truncation_length = 2
 truncation_symbol = "…/"
 
 [directory.substitutions]
@@ -39,7 +39,7 @@ style = "bold #a6e3a1"
 
 # Programming Languages - icons only
 [nodejs]
-symbol = ""
+symbol = " "
 style = "bold #89b4fa"
 format = "via [$symbol]($style)"
 
@@ -54,23 +54,23 @@ style = "bold #89b4fa"
 format = "via [$symbol]($style)"
 
 [rust]
-symbol = ""
+symbol = " "
 style = "bold #89b4fa"
 format = "via [$symbol]($style)"
 
 [golang]
-symbol = ""
+symbol = " "
 style = "bold #89b4fa"
 format = "via [$symbol]($style)"
 
 [python]
-symbol = ""
+symbol = " "
 style = "bold #89b4fa"
 format = "via [$symbol]($style)"
 
 # Tools & Environments - icons only
 [docker_context]
-symbol = ""
+symbol = " "
 style = "bold #f5c2e7"
 format = "via [$symbol]($style)"
 
@@ -93,7 +93,8 @@ format = "[$symbol]($style)"
 
 [battery]
 disabled = false
-style = "bold #cdd6f4"
+# REMOVED the style field from here - it only belongs in display thresholds
+format = "[$symbol $percentage ]($style)"
 
 [[battery.display]]
 threshold = 100
