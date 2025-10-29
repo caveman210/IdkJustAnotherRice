@@ -5,6 +5,10 @@ go/
 inkscape/
 libreoffice/
 obsidian/
+obs-studio/
+rncbc.org/
+matplotlib/
+QtProject.conf
 **/**/venv/
 **/**/package-lock.json
 **/**/node_modules/
