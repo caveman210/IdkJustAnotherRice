@@ -8,6 +8,12 @@ obsidian/
 obs-studio/
 rncbc.org/
 matplotlib/
+audacity/
+vlc/
+kdeglobals
+kdenlive-layoutsrc
+kdenlive
+mimeapps.list
 QtProject.conf
 **/**/venv/
 **/**/package-lock.json
