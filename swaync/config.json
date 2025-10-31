@@ -46,7 +46,6 @@
     "title",
     "dnd",
     "notifications",
-    "buttons-grid",
     "backlight",
     "backlight#KB",
     "volume",
@@ -144,21 +143,17 @@
           {
             "label": "",
             "command": "grim"
+          },
+          {
+            "label": "直",
+            "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'nmtui'"
+          },
+          {
+            "label": "",
+            "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'bluetuith'"
           }
         ]
       }
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "直",
-          "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'nmtui'"
-        },
-        {
-          "label": "",
-          "command": "foot --title greetyterm -e ${SHELL:-sh} -c 'bluetuith'"
-        }
-      ]
     }
   }
 }
