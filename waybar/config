@@ -22,13 +22,14 @@
 //  ],
   "modules-center": [
     "custom/notification",
+    "custom/weather"
   ],
   "modules-right": [
     "pulseaudio",
     "network",
     "battery",
     "bluetooth",
-    "custom/power",
+    "custom/power"
   ],
   "custom/apps": {
     "format": " ",
@@ -37,14 +38,14 @@
     "interval": 0,
     "on-click": "sherlock"
   },
-// "custom/weather": {
-//    "format": " {}",
-//    "tooltip": true,https://wttr.in/changanacheri
-//    "interval": 30,
-//    "exec": "$HOME/.config/waybar/scripts/open_meteo.py",
-//    "on-click": 'foot -e ${SHELL:-sh} -c "sleep 0.2; $HOME/.config/waybar/scripts/weather_popup.sh; exec${SHELL:-sh}"',
-//    "return-type": "json"
-//  },
+  "custom/weather": {
+    "format": " {}",
+    "tooltip": true,
+    "interval": 30,
+    "exec": "$HOME/.config/waybar/scripts/open_meteo.py",
+    "on-click": "foot -e ${SHELL:-sh} -c 'sleep 0.2; $HOME/.config/waybar/scripts/weather_popup.sh; exec${SHELL:-sh}'",
+    "return-type": "json"
+  },
   "custom/terminal": {
     "format": " ",
     "tooltip": true,
@@ -159,6 +160,6 @@
     "tooltip": true,
     "tooltip-format": "Power menu",
     "interval": 0,
-    "on-click": "wlogout",
+    "on-click": "wlogout"
   }
 }
