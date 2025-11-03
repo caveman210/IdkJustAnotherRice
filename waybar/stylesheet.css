@@ -41,7 +41,11 @@
 @define-color dawnmid #dbafb0;
 @define-color fontco #bf0a04;
 
-@define-color back1 #09012c;
 
-
-
+/*WWDC Wallpaper theme*/
+@define-color backww #0c023c;
+@define-color yelloww #e4b477;
+@define-color lavendarww #b48add;
+@define-color amethystww #c285dd;
+@define-color purpleww #4f2bd2;
+@define-color flamingoww #f0517c;

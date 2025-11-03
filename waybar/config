@@ -1,25 +1,13 @@
 {
   "position": "bottom",
   "margin-bottom": 4,
-//  "margin-top": 3,
   "margin-left": 10,
   "margin-right": 10,
   "height": 30,
-//  "modules-left": [
-//    "custom/apps",
-//    "custom/terminal",
-//    "custom/discord",
-//    "custom/obsidian",
-//    "hyprland/workspaces",
-//  ],
-  "modules-left": [
+ "modules-left": [
     "clock",
     "hyprland/workspaces",
   ], 
-//  "modules-center": [
-//    "custom/notification",
-//    "clock",
-//  ],
   "modules-center": [
     "custom/notification",
     "custom/weather"
@@ -31,13 +19,6 @@
     "bluetooth",
     "custom/power"
   ],
-  "custom/apps": {
-    "format": " ",
-    "tooltip": true,
-    "tooltip-format": "Apps",
-    "interval": 0,
-    "on-click": "sherlock"
-  },
   "custom/weather": {
     "format": " {}",
     "tooltip": true,
@@ -46,27 +27,6 @@
     "on-click": "foot -e ${SHELL:-sh} -c 'sleep 0.2; $HOME/.config/waybar/scripts/weather_popup.sh; exec${SHELL:-sh}'",
     "return-type": "json"
   },
-  "custom/terminal": {
-    "format": " ",
-    "tooltip": true,
-    "tooltip-format": "Terminal",
-    "interval": 0,
-    "on-click": "foot --title greetyterm -e ${SHELL:-sh} -c 'sleep 0.25; fastfetch; exec ${SHELL:-sh}'" 
-    },
-  "custom/discord": {
-    "format": "",
-    "tooltip": true,
-    "tooltip-format": "Discord",
-    "interval": 0,
-    "on-click": "discord" 
-    },
-  "custom/obsidian": {
-    "format": "",
-    "tooltip": true,
-    "tooltip-format": "Obsidian",
-    "interval": 0,
-    "on-click": "obsidian" 
-    },
   "custom/notification": {
     "tooltip": true,
     "tooltip-format": "SwayNC Client",

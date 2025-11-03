@@ -1,4 +1,4 @@
-@import "macchiato.css";
+@import "stylesheet.css";
 
 * {
   font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
@@ -8,8 +8,6 @@
 window#waybar {
   background: transparent;
   border-radius: 4px;
-  /*  transition-property: background-color;  
-  transition-duration: .5s;   */
 }
 
 button {
@@ -23,32 +21,13 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
   background: inherit;
-  box-shadow: inset 0 -3px @fontco;
-}
-
-#custom-apps {
-  color: @fontco;
-}
-
-#custom-terminal {
-  color: @fontco;
-  padding: 0 18px 0 14px;
-}
-
-#custom-discord {
-  color: @fontco;
-  padding: 0 20px 0 8px;
-}
-
-#custom-obsidian {
-  color: @fontco;
-  padding: 0 18px 0 14px;
+  box-shadow: inset 0 -3px @amethystww;
 }
 
 #workspaces button {
   padding: 0 5px;
   background-color: transparent;
-  color: @fontco;
+  color: @amethystww;
 }
 
 #workspaces button:hover {
@@ -56,8 +35,8 @@ button:hover {
 }
 
 #workspaces button.focused {
-  background-color: @fontco;
-  box-shadow: inset 0 -3px @fontco;
+  background-color: @amethystww;
+  box-shadow: inset 0 -3px @amethystww;
 }
 
 #workspaces button.urgent {
@@ -66,7 +45,7 @@ button:hover {
 
 #mode {
   background-color: #64727D;
-  box-shadow: inset 0 -3px @fontco;
+  box-shadow: inset 0 -3px @amethystww;
 }
 
 #custom-weather,
@@ -79,46 +58,46 @@ button:hover {
 }
 
 #custom-weather {
-  color: @fontco;
+  color: @yelloww;
   padding: 0 20px 0 3px;
 }
 
 
 
 #custom-notification {
-  color: @fontco;
+  color: @yelloww;
   padding: 0 20px 0 3px;
 }
 
 #pulseaudio {
-  color: @fontco;
+  color: @flamingoww;
 }
 
 #network {
-  color: @fontco;
+  color: @flamingoww;
 }
 
 #bluetooth {
-  color: @fontco;
+  color: @flamingoww;
 }
 
 #battery {
-  color: @fontco;
+  color: @flamingoww;
 }
 
 #clock {
-  color: @fontco;
+  color: @amethystww;
 }
 
 #custom-power {
-  color: @fontco;
+  color: @flamingoww;
 }
 
 .modules-right,
 .modules-left,
 .modules-center {
   /*  background-image: linear-gradient(to bottom, @dawnupi, @dawnmid, @dawndown); */
-  background-color: @back1;
+  background-color: @backww;
   border-radius: 15px;
 }
 
@@ -136,7 +115,7 @@ button:hover {
 
 #battery.charging,
 #battery.plugged {
-  color: @fontco;
+  color: @yelloww;
 }
 
 @keyframes blink {
@@ -161,6 +140,6 @@ label:focus {
 }
 
 #pulseaudio.muted {
-  color: @fontco;
+  color: @flamingoww;
   padding: 0 16px 0 7px;
 }
