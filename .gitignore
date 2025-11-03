@@ -3,6 +3,7 @@ chromium/
 dconf/
 go/
 inkscape/
+nwg-look/
 nvim/
 libreoffice/
 obsidian/
@@ -11,6 +12,7 @@ rncbc.org/
 matplotlib/
 audacity/
 vlc/
+xsettingsd/
 kdeglobals
 kdenlive-layoutsrc
 kdenlive
