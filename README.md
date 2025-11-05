@@ -7,11 +7,11 @@ Arch-Linux based, for Hyprland.
 Uses Waybar for status bar, Sherlock for the application launcher. 
 Bluetuith and nmtui for the wifi and bluetooth TUIs. 
 SwayNC for the notification daemon. 
-AstroNvim for the Neovim config. 
+Kickstart.nvim for the Neovim config. 
 
-TODO: 
-  1. Fix up non-working scripts and where the issues really lie at.
-  2. Beautify the current waybar/SwayNC configs, and add more script functionality to the whole thing.
-  3. Cleanup for a more structural formatting.
-  4. Try other alternatives for waybar, like AGS or EWW.
-  5. Kickstarter for the nvim config: self made.
+## TODO: 
+  - [x] Fix up non-working scripts and where the issues really lie at.
+  - [ ] Beautify the current waybar/SwayNC configs, and add more script functionality to the whole thing.
+  - [ ] Cleanup for a more structural formatting.
+  - [ ] Try other alternatives for waybar, like AGS or EWW.
+  - [x] Kickstart.nvim for the nvim config: self made. (Separate repo.)
