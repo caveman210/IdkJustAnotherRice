@@ -117,7 +117,7 @@ def coord_finder():
     # We put ipinfo first since ip-api is blocking you.
     locator_functions = [
         get_loc_ipinfo,
-        get_loc_freeipapi,
+      #  get_loc_freeipapi,
         get_loc_ipapi,  # Keep this last as a final fallback
     ]
 
