@@ -22,7 +22,7 @@
     "actions": [
       {
         "name": "Show in Web",
-        "exec": "https://www.wttr.in/bremen",
+        "exec": "https://www.wttr.in/changanacheri",
         "icon": "sherlock-link",
         "method": "web_launcher",
         "exit": true
