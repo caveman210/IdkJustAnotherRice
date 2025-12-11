@@ -11,7 +11,7 @@ Kickstart.nvim for the Neovim config.
 
 ## TODO: 
   - [x] Fix up non-working scripts and where the issues really lie at.
-  - [ ] Beautify the current waybar/SwayNC configs, and add more script functionality to the whole thing.
+  - [ ] ~Beautify the current waybar/SwayNC configs, and add more script functionality to the whole thing.~
   - [ ] Cleanup for a more structural formatting.
-  - [ ] Try other alternatives for waybar, like AGS or EWW.
+  - [x] Try other alternatives for waybar, like AGS or EWW.
   - [x] Kickstart.nvim for the nvim config: self made. (Separate repo.)
