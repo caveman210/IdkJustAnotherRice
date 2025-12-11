@@ -21,6 +21,11 @@ kdenlive-layoutsrc
 kdenlive
 mimeapps.list
 QtProject.conf
+Ultralytics/
+cava/
+configstore/
+pulse/
+qBittorrent/
 **/**/venv/
 **/**/package-lock.json
 **/**/node_modules/
