@@ -3,6 +3,7 @@ import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 import { BatteryService } from "./modules/battery/index"
+import { ClockService } from "./modules/clock/index"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
 	const time = createPoll("", 1000, "date")
@@ -29,13 +30,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 						<label label="Launcher" />
 					</button>
 				</box>
-				<box $type="center" />
-				<menubutton $type="center" hexpand halign={Gtk.Align.CENTER}>
-					<label label={time} />
-					<popover>
-						<Gtk.Calendar />
-					</popover>
-				</menubutton>
+				<box $type="center" >
+					<ClockService />
+				</box>
 				<box $type="end" >
 					<BatteryService />
 				</box>
