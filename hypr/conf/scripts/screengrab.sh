@@ -17,7 +17,7 @@ fi
 
 # Take screenshot
 if grim -g "$geometry" "$filename"; then
-	notify-send "Screenshot saved - Copied to clipboard" "$(basename "$filename")"
+	notify-send "Screenshot saved" "$(basename "$filename")"
 else
 	notify-send "Screenshot failed" "Could not capture area"
 	exit 1
