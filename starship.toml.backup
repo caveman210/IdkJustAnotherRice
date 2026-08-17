@@ -1,0 +1,174 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Set default symbol for modules that don't specify one
+[character]
+symbol = "❯"
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vim_symbol = "[❮](bold blue)"
+vim_insert_symbol = "[❯](bold blue)"
+
+[bun]
+format = "via []($style)"
+
+[buf]
+format = "with [⎈]($style)"
+
+[c]
+format = "via []($style)"
+
+[cmake]
+format = "via [⚙️]($style)"
+
+[cobol]
+format = "via [⚙️]($style)"
+
+[cpp]
+format = "via []($style)"
+
+[crystal]
+format = "via []($style)"
+
+[daml]
+format = "via [⚖️]($style)"
+
+[dart]
+format = "via []($style)"
+
+[deno]
+format = "via []($style)"
+
+[dotnet]
+format = "[$symbol(🎯 $tfm )]($style)"
+
+[elixir]
+format = 'via []($style)'
+
+[elm]
+format = 'via []($style)'
+
+[erlang]
+format = 'via []($style)'
+
+[fennel]
+format = 'via []($style)'
+
+[fortran]
+format = 'via []($style)'
+
+[gleam]
+format = 'via []($style)'
+
+[golang]
+format = 'via []($style)'
+
+[gradle]
+format = 'via []($style)'
+
+[haskell]
+format = 'via []($style)'
+
+[haxe]
+format = 'via []($style)'
+
+[helm]
+format = 'via [⎈]($style)'
+
+[java]
+format = 'via []($style)'
+
+[julia]
+format = 'via []($style)'
+
+[kotlin]
+format = 'via []($style)'
+
+[lua]
+format = 'via []($style)'
+
+[maven]
+format = 'via []($style)'
+
+[meson]
+format = 'via [⚙️]($style)'
+
+[mojo]
+format = 'with [🔥]($style)'
+
+[nim]
+format = 'via [🐍]($style)'
+
+[nodejs]
+format = 'via []($style)'
+
+[ocaml]
+format = 'via [$symbol(\($switch_indicator$switch_name\) )]($style)'
+
+[odin]
+format = 'via [☸️]($style)'
+
+[opa]
+format = 'via [⚙️]($style)'
+
+[perl]
+format = 'via []($style)'
+
+[php]
+format = 'via []($style)'
+
+[pixi]
+format = 'via [$symbol($environment )]($style)'
+
+[pulumi]
+format = 'via [$symbol$stack]($style)'
+
+[purescript]
+format = 'via []($style)'
+
+[python]
+format = 'via []($style)'
+
+[quarto]
+format = 'via [📊]($style)'
+
+[raku]
+format = 'via [🦋]($style)'
+
+[red]
+format = 'via [🔴]($style)'
+
+[rlang]
+format = 'via [📐]($style)'
+
+[ruby]
+format = 'via []($style)'
+
+[rust]
+format = 'via []($style)'
+
+[scala]
+format = 'via []($style)'
+
+[solidity]
+format = 'via [🔗]($style)'
+
+[swift]
+format = 'via [🐦]($style)'
+
+[typst]
+format = 'via [📝]($style)'
+
+[vagrant]
+format = 'via [📦]($style)'
+
+[vlang]
+format = 'via [🌐]($style)'
+
+[xmake]
+format = "via [⚙️]($style)"
+
+[zig]
+format = 'via [⚡]($style)'
+[package]
+format = "[$symbol$version]($style)"
+symbol = "📦 "

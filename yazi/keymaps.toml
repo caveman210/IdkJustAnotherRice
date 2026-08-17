@@ -1,0 +1,7 @@
+# keymap.toml
+[mgr]
+append_keymap = [
+	{
+		on = "<S-D-F23>", hidden = "toggle", desc = "Toggle hidden state of filesystem"
+	}
+]
