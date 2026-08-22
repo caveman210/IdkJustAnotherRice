@@ -378,16 +378,16 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="open a terminal: kitty" { spawn "kitty"; }
     Mod+W hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
-    Mod+R hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
-    Mod+S hotkey-overlay-title="Browse files: nautilus" { spawn "nautilus"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+G hotkey-overlay-title="Browse files: nautilus" { spawn "nautilus"; }
+    Super+Shift+F23 hotkey-overlay-title="Run an Application: vicinae" { spawn "vicinae toggle"; }
+    // Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "sddm --test-mode"; } : fix issues with a script ig
 
-    Super+Shift+F23 hotkey-overlay-title="open a file manager: yazi" { spawn "kitty -e yazi"; }
+    // Super+Shift+F23 hotkey-overlay-title="open a file manager: yazi" { spawn-sh "yazi"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -415,17 +415,12 @@ binds {
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=true { toggle-overview; }
-
     Mod+Q repeat=false { close-window; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
@@ -569,7 +564,7 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     // Cycle through widths set in preset-column-widths.
-    Mod+D { switch-preset-column-width; }
+    Mod+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
     Mod+Shift+R { switch-preset-column-width-back; }
 

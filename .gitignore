@@ -17,3 +17,10 @@ home-manager/flake.lock
 hypr/.luarc.json
 kitty/kitty.conf.bak
 nix/nix_conf.nix
+nvim/.luarc.json
+nvim/spell/
+nvim/lazy-lock.json
+autostart/
+chromium/
+go/
+mimeapps.list

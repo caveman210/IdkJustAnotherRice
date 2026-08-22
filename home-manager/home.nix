@@ -33,35 +33,40 @@
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
+    #    echo "Hello, ${config.home.username}!"
     # '')
     btop
     lazygit
     kitty
-	  yazi
-	  firefox
-	  nautilus
-	  quickshell
-	  awww
-	  grim
-	  slurp
-	  meson
-	  btop
-	  obsidian
-	  zathura
-	  vlc
-	  ninja
-	  brightnessctl
-	  wireplumber
-	  gnumake
-	  texliveBasic
-	  stremio-linux-shell
-	  ripgrep
-	  lua
-	  luarocks
-	  starship 
-	  eza
-	  bat
+      yazi
+      firefox
+      nautilus
+      quickshell
+      awww
+      grim
+    qbittorrent
+      slurp
+      meson
+      btop
+      obsidian
+      zathura
+      vlc
+      ninja
+      brightnessctl
+      wireplumber
+      gnumake
+      texliveBasic
+      stremio-service
+      ripgrep
+      lua
+      luarocks
+      starship 
+      eza
+      bat
+    go
+    chromium
+    feh
+    vicinae
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -72,8 +77,8 @@
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
+    #    org.gradle.console=verbose
+    #    org.gradle.daemon.idletimeout=3600000
     # '';
   };
 
@@ -99,15 +104,7 @@
 
   programs.vicinae = {
     enable = true;
-
-    systemd = {
-      enable = true;
-      autoStart = true;
-
-      environment = {
-        USE_LAYER_SHELL = "1";
-      };
-    };
+    package = pkgs.vicinae;
+    useLayerShell = true;
   };
 }
-
