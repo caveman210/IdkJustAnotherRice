@@ -1,2 +1,2 @@
-Bar: [Niriha](https://github.com/tahfizhabib/niriha)
-Color scheme: AI-generated (mostly)
+- Bar: [Niriha](https://github.com/tahfizhabib/niriha)
+- Color scheme: AI-generated (mostly)
