@@ -77,7 +77,7 @@ PanelWindow {
     }
 
     // Background
-    Rectangle { anchors.fill: parent; color: "#282828"; opacity: 0.97; radius: 14 }
+    Rectangle { anchors.fill: parent; color: "#0D0D0D"; opacity: 0.97; radius: 14 }
 
     ColumnLayout {
         anchors.fill: parent
@@ -86,7 +86,7 @@ PanelWindow {
 
         // ── Search bar ────────────────────────────────────────────────
         Rectangle {
-            Layout.fillWidth: true; height: 44; radius: 10; color: "#3c3836"
+            Layout.fillWidth: true; height: 44; radius: 10; color: "#40170E"
 
             Row {
                 anchors.left: parent.left
@@ -97,7 +97,7 @@ PanelWindow {
                 Image {
                     width: 16; height: 16; smooth: true
                     anchors.verticalCenter: parent.verticalCenter
-                    source: launcher.svg("<circle cx='11' cy='11' r='8'/><path d='m21 21-4.35-4.35'/>", "%23665c54", 16)
+                    source: launcher.svg("<circle cx='11' cy='11' r='8'/><path d='m21 21-4.35-4.35'/>", "%23594347", 16)
                 }
 
                 Item {
@@ -107,7 +107,7 @@ PanelWindow {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         text: "Search apps..."
-                        color: "#504945"
+                        color: "#594347"
                         font.family: "Google Sans"
                         font.pixelSize: 16
                         visible: searchBox.text === ""
@@ -118,7 +118,7 @@ PanelWindow {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
-                        color: "#ebdbb2"
+                        color: "#D9CCCC"
                         font.family: "Google Sans"
                         font.pixelSize: 16
                         onTextChanged: {
@@ -139,7 +139,7 @@ PanelWindow {
                 anchors.rightMargin: 14
                 anchors.verticalCenter: parent.verticalCenter
                 text: filtered.values.length + " apps"
-                color: "#504945"
+                color: "#594347"
                 font.family: "Google Sans"
                 font.pixelSize: 12
                 visible: launcher.query === ""
@@ -182,7 +182,7 @@ PanelWindow {
                             anchors.leftMargin: 2
                             anchors.rightMargin: 2
                             radius: 10
-                            color: index === launcher.selIdx ? "#0d6070" : (hov.containsMouse ? "#3c3836" : "transparent")
+                            color: index === launcher.selIdx ? "#594347" : (hov.containsMouse ? "#40170E" : "transparent")
                             Behavior on color { ColorAnimation { duration: 80 } }
 
                             Row {
@@ -212,7 +212,7 @@ PanelWindow {
                                     Text {
                                         width: parent.width
                                         text: modelData.name || ""
-                                        color: "#ebdbb2"
+                                        color: "#D9CCCC"
                                         font.family: "Google Sans"
                                         font.pixelSize: 16
                                         font.weight: index === launcher.selIdx ? Font.Medium : Font.Normal
@@ -221,7 +221,7 @@ PanelWindow {
                                     Text {
                                         width: parent.width
                                         text: modelData.comment || modelData.genericName || ""
-                                        color: "#a89984"
+                                        color: "#A68C8A"
                                         font.family: "Google Sans"
                                         font.pixelSize: 13
                                         elide: Text.ElideRight
@@ -234,11 +234,11 @@ PanelWindow {
                                     visible: index === launcher.selIdx
                                     anchors.verticalCenter: parent.verticalCenter
                                     width: 58; height: 24; radius: 7
-                                    color: "#3c3836"
+                                    color: "#40170E"
                                     Text {
                                         anchors.centerIn: parent
                                         text: "↵ open"
-                                        color: "#8ec07c"
+                                        color: "#A68C8A"
                                         font.family: "Google Sans"
                                         font.pixelSize: 12
                                     }
@@ -259,10 +259,10 @@ PanelWindow {
         }
 
         // ── Footer ────────────────────────────────────────────────────
-        Rectangle { Layout.fillWidth: true; height: 1; color: "#3c3836" }
+        Rectangle { Layout.fillWidth: true; height: 1; color: "#40170E" }
         Text {
             text: "↑↓ navigate  ·  ↵ open  ·  Esc close"
-            color: "#665c54"
+            color: "#594347"
             font.family: "Google Sans"
             font.pixelSize: 11
             Layout.alignment: Qt.AlignHCenter

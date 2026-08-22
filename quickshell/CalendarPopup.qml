@@ -90,12 +90,12 @@ PanelWindow {
         opacity: 0.96
         Rectangle {
             anchors.fill: parent
-            color: "#020C16"; radius: 10
+            color: "#0D0D0D"; radius: 10
             Rectangle {
                 anchors.top:   parent.top
                 anchors.left:  parent.left
                 anchors.right: parent.right
-                height: 10; color: "#020C16"
+                height: 10; color: "#0D0D0D"
             }
         }
     }
@@ -106,7 +106,7 @@ PanelWindow {
 
         // ── Time + day/date header ────────────────────────────────────
         Rectangle {
-            Layout.fillWidth: true; height: 80; radius: 8; color: "#00101C"
+            Layout.fillWidth: true; height: 80; radius: 8; color: "#0D0D0D"
 
             // big time left
             Text {
@@ -114,7 +114,7 @@ PanelWindow {
                 anchors.leftMargin:     14
                 anchors.verticalCenter: parent.verticalCenter
                 text: cal.clockH + ":" + cal.clockM
-                color: "#ebdbb2"; font.family: "Google Sans"
+                color: "#D9CCCC"; font.family: "Google Sans"
                 font.pixelSize: 54; font.weight: Font.Medium
             }
 
@@ -125,7 +125,7 @@ PanelWindow {
                 anchors.top:          parent.top
                 anchors.topMargin:    14
                 text: cal.dayName
-                color: "#ebdbb2"; font.family: "Google Sans"
+                color: "#D9CCCC"; font.family: "Google Sans"
                 font.pixelSize: 18; font.weight: Font.Medium
             }
 
@@ -136,7 +136,7 @@ PanelWindow {
                 anchors.bottom:        parent.bottom
                 anchors.bottomMargin:  14
                 text: cal.dateStr
-                color: "#83a598"; font.family: "Google Sans"
+                color: "#A68C8A"; font.family: "Google Sans"
                 font.pixelSize: 17
             }
         }
@@ -145,7 +145,7 @@ PanelWindow {
         Rectangle {
             Layout.fillWidth: true
             id: calCard
-            height: 348; radius: 8; color: "#184153"
+            height: 348; radius: 8; color: "#40170E"
 
             ColumnLayout {
                 anchors { fill: parent; margins: 12 }
@@ -157,7 +157,7 @@ PanelWindow {
 
                     Item { width: 28; height: 28
                         Text { anchors.centerIn: parent; text: "‹"
-                            color: arL.containsMouse ? "#ebdbb2" : "#665c54"
+                            color: arL.containsMouse ? "#D9CCCC" : "#A68C8A"
                             font.pixelSize: 20; font.weight: Font.Medium
                             Behavior on color { ColorAnimation { duration: 80 } } }
                         MouseArea { id: arL; anchors.fill: parent; hoverEnabled: true
@@ -166,14 +166,14 @@ PanelWindow {
 
                     Text {
                         Layout.fillWidth: true; text: cal.months[cal.viewMonth-1] + " " + cal.viewYear
-                        color: "#ebdbb2"; font.family: "Google Sans"
+                        color: "#D9CCCC"; font.family: "Google Sans"
                         font.pixelSize: 18; font.weight: Font.Medium
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Item { width: 28; height: 28
                         Text { anchors.centerIn: parent; text: "›"
-                            color: arR.containsMouse ? "#ebdbb2" : "#665c54"
+                            color: arR.containsMouse ? "#D9CCCC" : "#A68C8A"
                             font.pixelSize: 20; font.weight: Font.Medium
                             Behavior on color { ColorAnimation { duration: 80 } } }
                         MouseArea { id: arR; anchors.fill: parent; hoverEnabled: true
@@ -191,13 +191,13 @@ PanelWindow {
                             required property var modelData
                             width: Math.floor((calCard.width - 24) / 7)
                             text: modelData
-                            color: "#a89984"; font.family: "Google Sans"
+                            color: "#A68C8A"; font.family: "Google Sans"
                             font.pixelSize: 15; horizontalAlignment: Text.AlignHCenter
                         }
                     }
                 }
 
-                Rectangle { Layout.fillWidth: true; height: 1; color: "#504945"; opacity: 0.3 }
+                Rectangle { Layout.fillWidth: true; height: 1; color: "#40170E"; opacity: 0.3 }
 
                 // calendar grid
                 Grid {
@@ -230,14 +230,14 @@ PanelWindow {
                             Rectangle {
                                 anchors.centerIn: parent
                                 width: 32; height: 32; radius: 16
-                                color: isToday ? "#2a6050" : (dMa.containsMouse && valid ? "#504945" : "transparent")
+                                color: isToday ? "#0D0D0D" : (dMa.containsMouse && valid ? "#0D0D0D" : "transparent")
                                 Behavior on color { ColorAnimation { duration: 80 } }
                             }
 
                             Text {
                                 anchors.centerIn: parent
                                 text: valid ? dayNum.toString() : ""
-                                color: isToday ? "#ebdbb2" : "#ebdbb2"
+                                color: isToday ? "#D9CCCC" : "#D9CCCC"
                                 font.family: "Google Sans"; font.pixelSize: 16
                                 font.weight: isToday ? Font.Medium : Font.Normal
                             }

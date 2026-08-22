@@ -4,7 +4,7 @@ Item {
     id: pill
     property string iconSvg:     ""
     property string valueText:   ""
-    property color  accentColor: "#83a598"
+    property color  accentColor: "#A68C8A"
     property bool   _open:       false
     signal clicked()
 
@@ -20,7 +20,7 @@ Item {
         smooth: true
         source: pill.iconSvg !== ""
             ? "data:image/svg+xml;utf8," + pill.iconSvg.replace(/currentColor/g,
-                pill._open ? pill.encodeColor(pill.accentColor) : "%23ebdbb2")
+                pill._open ? pill.encodeColor(pill.accentColor) : "%23D9CCCC")
             : ""
     }
 

@@ -38,35 +38,38 @@
     btop
     lazygit
     kitty
-      yazi
-      firefox
-      nautilus
-      quickshell
-      awww
-      grim
+    yazi
+    firefox
+    nautilus
+    quickshell
+    awww
+    grim
     qbittorrent
-      slurp
-      meson
-      btop
-      obsidian
-      zathura
-      vlc
-      ninja
-      brightnessctl
-      wireplumber
-      gnumake
-      texliveBasic
-      stremio-service
-      ripgrep
-      lua
-      luarocks
-      starship 
-      eza
-      bat
+    slurp
+    meson
+    btop
+    obsidian
+    zathura
+    vlc
+    ninja
+    brightnessctl
+    wireplumber
+    gcc
+    gdb
+    gnumake
+    texliveBasic
+    stremio-service
+    ripgrep
+    lua
+    luarocks
+    starship 
+    eza
+    bat
     go
     chromium
     feh
     vicinae
+    libcap
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -101,6 +104,8 @@
       };
     };
   };
+
+
 
   programs.vicinae = {
     enable = true;

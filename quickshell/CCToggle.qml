@@ -11,7 +11,7 @@ Rectangle {
 
     implicitHeight: 56
     radius: 8
-    color: active ? "#3c3836" : "#1d2021"
+    color: active ? "#40170E" : "#0D0D0D"
 
     Behavior on color { ColorAnimation { duration: 100 } }
 
@@ -23,9 +23,9 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             width: 18; height: 18; smooth: true
             source: {
-                var stroke = tog.active ? "%2383a598"
-                           : tog.dimmed ? "%23504945"
-                           : "%2357514e"
+                var stroke = tog.active ? "%23A68C8A"
+                           : tog.dimmed ? "%23594347"
+                           : "%230D0D0D"
                 return tog.iconSvg.replace("currentColor", stroke)
             }
         }
@@ -33,7 +33,7 @@ Rectangle {
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             text: tog.label
-            color: tog.active ? "#ebdbb2" : "#57514e"
+            color: tog.active ? "#D9CCCC" : "#594347"
             font.family: "Google Sans"; font.pixelSize: 10
             elide: Text.ElideRight; width: tog.width - 8
             horizontalAlignment: Text.AlignHCenter

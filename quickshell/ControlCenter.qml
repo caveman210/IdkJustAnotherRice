@@ -204,8 +204,8 @@ PanelWindow {
     function cyclePP(){ var p=["power-saver","balanced","performance"]; var n=p[(p.indexOf(cc.powerProfile)+1)%3]; cc.powerProfile=n; Qt.createQmlObject('import Quickshell.Io; Process{command:["powerprofilesctl","set","'+n+'"]; running:true}',cc,"pp") }
 
     // ── Background ────────────────────────────────────────────────────
-    Rectangle { anchors.fill:parent; color:"#282828"; opacity:0.96; radius:8
-        Rectangle { anchors.top:parent.top; anchors.left:parent.left; anchors.right:parent.right; height:8; color:"#282828" } }
+    Rectangle { anchors.fill:parent; color:"#0D0D0D"; opacity:0.96; radius:8
+        Rectangle { anchors.top:parent.top; anchors.left:parent.left; anchors.right:parent.right; height:8; color:"#0D0D0D" } }
 
     ColumnLayout {
         id: mainCol
@@ -218,13 +218,13 @@ PanelWindow {
             spacing: 10
 
             Rectangle {
-                width:42; height:42; radius:8; color:"#3c3836"; clip:true
+                width:42; height:42; radius:8; color:"#40170E"; clip:true
 
                 // Default lucide user icon
                 Image {
                     anchors.centerIn:parent; width:24; height:24; smooth:true
                     visible: cc.avatarEmoji === "😊" || cc.editingAvatar
-                    source: cc.ico(cc.p_user, "%23a89984", 24)
+                    source: cc.ico(cc.p_user, "%23A68C8A", 24)
                 }
                 // Custom emoji
                 Text {
@@ -234,9 +234,9 @@ PanelWindow {
                 // Pencil badge on hover
                 Rectangle {
                     anchors.bottom:parent.bottom; anchors.right:parent.right
-                    width:14; height:14; radius:3; color:"#504945"
+                    width:14; height:14; radius:3; color:"#594347"
                     visible:avatMa.containsMouse
-                    Image { anchors.centerIn:parent; width:9; height:9; smooth:true; source:cc.ico(cc.p_pencil,"%23ebdbb2",9) }
+                    Image { anchors.centerIn:parent; width:9; height:9; smooth:true; source:cc.ico(cc.p_pencil,"%23D9CCCC",9) }
                 }
                 MouseArea { id:avatMa; anchors.fill:parent; hoverEnabled:true; cursorShape:Qt.PointingHandCursor
                     onDoubleClicked: cc.editingAvatar=!cc.editingAvatar }
@@ -244,8 +244,8 @@ PanelWindow {
                 Rectangle {
                     visible:cc.editingAvatar
                     anchors.top:parent.bottom; anchors.topMargin:4; anchors.left:parent.left
-                    width:220; height:44; radius:8; color:"#3c3836"; z:10
-                    border.width:1; border.color:"#504945"
+                    width:220; height:44; radius:8; color:"#40170E"; z:10
+                    border.width:1; border.color:"#594347"
                     Row { anchors.centerIn:parent; spacing:8
                         Repeater { model:["😊","😎","🦊","🐧","🌙","⭐","🎮","🔥"]
                             Text { required property var modelData; text:modelData; font.pixelSize:20
@@ -255,13 +255,13 @@ PanelWindow {
             }
 
             ColumnLayout { spacing:2; visible:!cc.editingName
-                Text { text:cc.displayName||cc.hostname||"niriha"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium
+                Text { text:cc.displayName||cc.hostname||"niriha"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium
                     MouseArea{anchors.fill:parent; cursorShape:Qt.PointingHandCursor; onDoubleClicked:{cc.editingName=true; nameEdit.text=cc.displayName||cc.hostname; nameEdit.forceActiveFocus()}} }
-                Text { text:"uptime "+(cc.uptime||""); color:"#a89984"; font.family:"Google Sans"; font.pixelSize:11; visible:cc.uptime!=="" }
+                Text { text:"uptime "+(cc.uptime||""); color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:11; visible:cc.uptime!=="" }
             }
-            Rectangle { visible:cc.editingName; height:28; width:120; radius:6; color:"#504945"
+            Rectangle { visible:cc.editingName; height:28; width:120; radius:6; color:"#594347"
                 TextInput { id:nameEdit; anchors{fill:parent; leftMargin:8; rightMargin:8; verticalCenter:parent.verticalCenter}
-                    color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; verticalAlignment:TextInput.AlignVCenter
+                    color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; verticalAlignment:TextInput.AlignVCenter
                     Keys.onReturnPressed:{cc.displayName=text; cc.editingName=false}
                     Keys.onEscapePressed: cc.editingName=false } }
 
@@ -269,7 +269,7 @@ PanelWindow {
 
             // Header icon capsule — calendar > power > close
             Rectangle {
-                height: 38; radius: 8; color: "#3c3836"
+                height: 38; radius: 8; color: "#40170E"
                 implicitWidth: hBtns.implicitWidth + 12
 
                 Row {
@@ -278,30 +278,30 @@ PanelWindow {
                     spacing: 3
 
                     Item { width: 36; height: 36
-                        Rectangle { anchors.fill: parent; radius: 8; color: calMa.containsMouse ? "#504945" : "transparent"
+                        Rectangle { anchors.fill: parent; radius: 8; color: calMa.containsMouse ? "#594347" : "transparent"
                             Behavior on color { ColorAnimation { duration: 80 } } }
                         Image { anchors.centerIn: parent; width: 16; height: 16; smooth: true
-                            source: cc.ico(cc.p_cal, "%23ebdbb2", 16) }
+                            source: cc.ico(cc.p_cal, "%23D9CCCC", 16) }
                         MouseArea { id: calMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                         onClicked: Qt.createQmlObject('import Quickshell.Io; Process{command:["qs","ipc","-c","niriha","call","calendar","toggle"]; running:true}', cc, "cal") } }
 
-                    Rectangle { width: 1; height: 20; anchors.verticalCenter: parent.verticalCenter; color: "#504945"; opacity: 0.5 }
+                    Rectangle { width: 1; height: 20; anchors.verticalCenter: parent.verticalCenter; color: "#594347"; opacity: 0.5 }
 
                     Item { width: 36; height: 36
-                        Rectangle { anchors.fill: parent; radius: 8; color: poMa.containsMouse ? "#3c2020" : "transparent"
+                        Rectangle { anchors.fill: parent; radius: 8; color: poMa.containsMouse ? "#594347" : "transparent"
                             Behavior on color { ColorAnimation { duration: 80 } } }
                         Image { anchors.centerIn: parent; width: 16; height: 16; smooth: true
-                            source: cc.ico(cc.p_power, poMa.containsMouse ? "%23fb4934" : "%23ebdbb2", 16) }
+                            source: cc.ico(cc.p_power, poMa.containsMouse ? "%2340170E" : "%23D9CCCC", 16) }
                         MouseArea { id: poMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                             onClicked: Qt.createQmlObject('import Quickshell.Io; Process{command:["systemctl","poweroff"]; running:true}', cc, "po") } }
 
-                    Rectangle { width: 1; height: 20; anchors.verticalCenter: parent.verticalCenter; color: "#504945"; opacity: 0.5 }
+                    Rectangle { width: 1; height: 20; anchors.verticalCenter: parent.verticalCenter; color: "#594347"; opacity: 0.5 }
 
                     Item { width: 36; height: 36
-                        Rectangle { anchors.fill: parent; radius: 8; color: clMa.containsMouse ? "#504945" : "transparent"
+                        Rectangle { anchors.fill: parent; radius: 8; color: clMa.containsMouse ? "#594347" : "transparent"
                             Behavior on color { ColorAnimation { duration: 80 } } }
                         Image { anchors.centerIn: parent; width: 16; height: 16; smooth: true
-                            source: cc.ico(cc.p_x, clMa.containsMouse ? "%23fb4934" : "%23ebdbb2", 16) }
+                            source: cc.ico(cc.p_x, clMa.containsMouse ? "%2340170E" : "%23D9CCCC", 16) }
                         MouseArea { id: clMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                             onClicked: cc.visible = false } }
                 }
@@ -320,16 +320,16 @@ PanelWindow {
                 // WiFi
                 Rectangle {
                     Layout.fillWidth:true; height:52; radius:8
-                    color: "#3c3836"
+                    color: "#40170E"
                     Behavior on color { ColorAnimation{duration:150} }
 
                     RowLayout { anchors{fill:parent; margins:8}
                         spacing:10
-                        Rectangle { width:36; height:36; radius:7; color:"#504945"; Behavior on color{ColorAnimation{duration:150}}
-                            Image{anchors.centerIn:parent; width:22; height:22; smooth:true; source:cc.ico(cc.p_wifi, "%23a89984", 22)} }
+                        Rectangle { width:36; height:36; radius:7; color:"#594347"; Behavior on color{ColorAnimation{duration:150}}
+                            Image{anchors.centerIn:parent; width:22; height:22; smooth:true; source:cc.ico(cc.p_wifi, "%23A68C8A", 22)} }
                         ColumnLayout { Layout.fillWidth:true; spacing:2; Layout.alignment:Qt.AlignVCenter
-                            Text{text:"WiFi"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:14; font.weight:Font.Medium; horizontalAlignment:Text.AlignHCenter; Layout.fillWidth:true}
-                            Text{visible:cc.wifiOn&&cc.wifiName!==""; text:cc.wifiName; color:"#a89984"; font.family:"Google Sans"; font.pixelSize:12; elide:Text.ElideRight; Layout.fillWidth:true; horizontalAlignment:Text.AlignHCenter} }
+                            Text{text:"WiFi"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:14; font.weight:Font.Medium; horizontalAlignment:Text.AlignHCenter; Layout.fillWidth:true}
+                            Text{visible:cc.wifiOn&&cc.wifiName!==""; text:cc.wifiName; color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:12; elide:Text.ElideRight; Layout.fillWidth:true; horizontalAlignment:Text.AlignHCenter} }
     
                     }
                     MouseArea{anchors.fill:parent; cursorShape:Qt.PointingHandCursor
@@ -339,16 +339,16 @@ PanelWindow {
                 // BT
                 Rectangle {
                     Layout.fillWidth:true; height:52; radius:8
-                    color: "#3c3836"
+                    color: "#40170E"
                     Behavior on color { ColorAnimation{duration:150} }
 
                     RowLayout { anchors{fill:parent; margins:8}
                         spacing:10
-                        Rectangle { width:36; height:36; radius:7; color:"#504945"; Behavior on color{ColorAnimation{duration:150}}
-                            Image{anchors.centerIn:parent; width:22; height:22; smooth:true; source:cc.ico(cc.p_bt, "%23a89984", 22)} }
+                        Rectangle { width:36; height:36; radius:7; color:"#594347"; Behavior on color{ColorAnimation{duration:150}}
+                            Image{anchors.centerIn:parent; width:22; height:22; smooth:true; source:cc.ico(cc.p_bt, "%23A68C8A", 22)} }
                         ColumnLayout { Layout.fillWidth:true; spacing:2; Layout.alignment:Qt.AlignVCenter
-                            Text{text:"Bluetooth"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:14; font.weight:Font.Medium; horizontalAlignment:Text.AlignHCenter; Layout.fillWidth:true}
-                            Text{visible:cc.btOn&&cc.btDevice!==""; text:cc.btDevice; color:"#a89984"; font.family:"Google Sans"; font.pixelSize:12; elide:Text.ElideRight; Layout.fillWidth:true; horizontalAlignment:Text.AlignHCenter} }
+                            Text{text:"Bluetooth"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:14; font.weight:Font.Medium; horizontalAlignment:Text.AlignHCenter; Layout.fillWidth:true}
+                            Text{visible:cc.btOn&&cc.btDevice!==""; text:cc.btDevice; color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:12; elide:Text.ElideRight; Layout.fillWidth:true; horizontalAlignment:Text.AlignHCenter} }
     
                     }
                     MouseArea{anchors.fill:parent; cursorShape:Qt.PointingHandCursor
@@ -361,21 +361,21 @@ PanelWindow {
                 width:52; height:116
                 Rectangle {
                     id:volTrack; anchors.horizontalCenter:parent.horizontalCenter
-                    width:44; height:parent.height; radius:10; color:"#3c3836"; clip:true
+                    width:44; height:parent.height; radius:10; color:"#0D0D0D"; clip:true
                     Rectangle {
                         id:volFill; anchors.bottom:parent.bottom; anchors.left:parent.left; anchors.right:parent.right
                         height:Math.max(20, parent.height*Math.min(cc.volPct,100)/100)
-                        radius:10; color:cc.volMute?"#504945":"#504945"
+                        radius:10; color:cc.volMute?"#594347":"#A68C8A"
                         Behavior on height{NumberAnimation{duration:120; easing.type:Easing.OutCubic}}
                         Behavior on color{ColorAnimation{duration:120}}
                     }
                     Text{anchors.horizontalCenter:parent.horizontalCenter; anchors.top:parent.top; anchors.topMargin:8
-                        text:"VOL"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:9; font.weight:Font.Bold; font.letterSpacing:1.5}
+                        text:"VOL"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:9; font.weight:Font.Bold; font.letterSpacing:1.5}
                     Text{anchors.horizontalCenter:parent.horizontalCenter; anchors.top:parent.top; anchors.topMargin:22
-                        text:cc.volMute?"M":cc.volPct+"%"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium}
+                        text:cc.volMute?"M":cc.volPct+"%"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium}
                     Image{anchors.horizontalCenter:parent.horizontalCenter; anchors.bottom:volFill.bottom; anchors.bottomMargin:8
                         width:18; height:18; smooth:true
-                        source:cc.ico(cc.volMute?cc.p_volX:cc.volPct<=30?cc.p_vol1:cc.volPct<=60?cc.p_vol2:cc.p_vol3, "%23a89984", 18)}
+                        source:cc.ico(cc.volMute?cc.p_volX:cc.volPct<=30?cc.p_vol1:cc.volPct<=60?cc.p_vol2:cc.p_vol3, "%23A68C8A", 18)}
                 }
                 MouseArea{anchors.fill:volTrack; cursorShape:Qt.PointingHandCursor; hoverEnabled:true
                     onWheel:function(w){cc.setVol(cc.volPct+(w.angleDelta.y>0?5:-5))}
@@ -389,20 +389,20 @@ PanelWindow {
                 width:52; height:116
                 Rectangle {
                     id:briTrack; anchors.horizontalCenter:parent.horizontalCenter
-                    width:44; height:parent.height; radius:10; color:"#3c3836"; clip:true
+                    width:44; height:parent.height; radius:10; color:"#0D0D0D"; clip:true
                     Rectangle {
                         anchors.bottom:parent.bottom; anchors.left:parent.left; anchors.right:parent.right
                         height:Math.max(20, parent.height*cc.briPct/100)
-                        radius:10; color:"#504945"
+                        radius:10; color:"#A68C8A"
                         Behavior on height{NumberAnimation{duration:120; easing.type:Easing.OutCubic}}
                     }
                     Text{anchors.horizontalCenter:parent.horizontalCenter; anchors.top:parent.top; anchors.topMargin:8
-                        text:"BRI"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:9; font.weight:Font.Bold; font.letterSpacing:1.5}
+                        text:"BRI"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:9; font.weight:Font.Bold; font.letterSpacing:1.5}
                     Text{anchors.horizontalCenter:parent.horizontalCenter; anchors.top:parent.top; anchors.topMargin:22
-                        text:cc.briPct+"%"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium}
+                        text:cc.briPct+"%"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium}
                     Image{anchors.horizontalCenter:parent.horizontalCenter; anchors.bottom:parent.bottom; anchors.bottomMargin:10
                         width:18; height:18; smooth:true
-                        source:cc.ico(cc.briPct===0?cc.p_briOff:cc.p_bri, "%23a89984", 18)}
+                        source:cc.ico(cc.briPct===0?cc.p_briOff:cc.p_bri, "%23A68C8A", 18)}
                 }
                 MouseArea{anchors.fill:briTrack; cursorShape:Qt.PointingHandCursor; hoverEnabled:true
                     onWheel:function(w){cc.setBri(cc.briPct+(w.angleDelta.y>0?5:-5))}
@@ -415,53 +415,53 @@ PanelWindow {
         Column { Layout.fillWidth:true; visible:cc.wifiOpen&&cc.wifiNetworks.length>0; spacing:1
             Repeater { model:cc.wifiNetworks
                 Rectangle { required property var modelData; width:mainCol.width; height:34; radius:6
-                    color:wMa.containsMouse?"#3c3836":"transparent"; Behavior on color{ColorAnimation{duration:60}}
+                    color:wMa.containsMouse?"#40170E":"transparent"; Behavior on color{ColorAnimation{duration:60}}
                     RowLayout{anchors{fill:parent; leftMargin:10; rightMargin:10}
                         spacing:8
                         Row{spacing:2; Layout.alignment:Qt.AlignVCenter
                             Repeater{model:4; Rectangle{width:3; radius:1; height:4+index*3; anchors.bottom:parent.bottom
-                                color:modelData.signal>=(index+1)*25?"#83a598":"#504945"}}}
-                        Text{text:modelData.ssid; Layout.fillWidth:true; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; elide:Text.ElideRight}
-                        Image{visible:modelData.active; width:13; height:13; smooth:true; source:cc.ico(cc.p_check,"%2383a598",13)}}
+                                color:modelData.signal>=(index+1)*25?"#A68C8A":"#594347"}}}
+                        Text{text:modelData.ssid; Layout.fillWidth:true; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; elide:Text.ElideRight}
+                        Image{visible:modelData.active; width:13; height:13; smooth:true; source:cc.ico(cc.p_check,"%23A68C8A",13)}}
                     MouseArea{id:wMa; anchors.fill:parent; hoverEnabled:true; cursorShape:Qt.PointingHandCursor
                         onClicked:if(!modelData.active)cc.connectWifi(modelData.ssid)}}}}
 
         // BT list
         Column { Layout.fillWidth:true; visible:cc.btOpen; spacing:1
-            Text{visible:cc.btDevices.length===0; text:"No devices connected"; color:"#a89984"; font.family:"Google Sans"; font.pixelSize:13; leftPadding:10}
+            Text{visible:cc.btDevices.length===0; text:"No devices connected"; color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:13; leftPadding:10}
             Repeater{model:cc.btDevices
                 Rectangle{required property var modelData; width:mainCol.width; height:34; radius:6; color:"transparent"
                     RowLayout{anchors{fill:parent; leftMargin:10; rightMargin:10}
                         spacing:8
-                        Image{width:15; height:15; smooth:true; source:cc.ico(cc.p_bt,"%2383a598",15)}
-                        Text{text:modelData.name; Layout.fillWidth:true; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; elide:Text.ElideRight}
-                        Text{text:"disconnect"; color:"#a89984"; font.family:"Google Sans"; font.pixelSize:12
+                        Image{width:15; height:15; smooth:true; source:cc.ico(cc.p_bt,"%23A68C8A",15)}
+                        Text{text:modelData.name; Layout.fillWidth:true; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; elide:Text.ElideRight}
+                        Text{text:"disconnect"; color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:12
                             MouseArea{anchors.fill:parent; cursorShape:Qt.PointingHandCursor; onClicked:cc.disconnectBt(modelData.mac)}}}}} }
 
         // Power profile full width
         Rectangle {
-            Layout.fillWidth:true; height:48; radius:8; color:"#3c3836"
+            Layout.fillWidth:true; height:48; radius:8; color:"#40170E"
             RowLayout { anchors{fill:parent; leftMargin:14; rightMargin:14}
                         spacing:12
                 Image{width:26; height:26; smooth:true
                     source:cc.ico(cc.p_zap,
-                        cc.powerProfile==="performance"?"%23fe8019":
-                        cc.powerProfile==="power-saver"?"%2383a598":"%23a89984", 26)}
+                        cc.powerProfile==="performance"?"%23594347":
+                        cc.powerProfile==="power-saver"?"%23A68C8A":"%23A68C8A", 26)}
                 Text{text:cc.powerProfile==="performance"?"Performance":cc.powerProfile==="power-saver"?"Power Saver":"Balanced"
-                    color:cc.powerProfile==="performance"?"#fe8019":cc.powerProfile==="power-saver"?"#83a598":"#ebdbb2"
+                    color:cc.powerProfile==="performance"?"#594347":cc.powerProfile==="power-saver"?"#A68C8A":"#D9CCCC"
                     font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; Layout.fillWidth:true}
-                Image{width:14; height:14; smooth:true; source:cc.ico(cc.p_chevR,"%23a89984",14)}
+                Image{width:14; height:14; smooth:true; source:cc.ico(cc.p_chevR,"%23A68C8A",14)}
             }
             MouseArea{anchors.fill:parent; cursorShape:Qt.PointingHandCursor; onClicked:cc.cyclePP()}
         }
 
         // ── ECG System Monitor ────────────────────────────────────────
         Rectangle {
-            Layout.fillWidth:true; height:168; radius:10; color:"#3c3836"
+            Layout.fillWidth:true; height:168; radius:10; color:"#40170E"
 
             // subtle grid lines between rows
             Repeater { model:2
-                Rectangle { x:10; y:56+index*54; width:parent.width-20; height:1; color:"#504945"; opacity:0.25 } }
+                Rectangle { x:10; y:56+index*54; width:parent.width-20; height:1; color:"#594347"; opacity:0.25 } }
 
             Column {
                 anchors { left:parent.left; right:parent.right; top:parent.top; topMargin:4; leftMargin:10; rightMargin:10 }
@@ -469,26 +469,26 @@ PanelWindow {
 
                 // CPU
                 Item { width:parent.width; height:54
-                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#504945";
-                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_cpu,"%23ebdbb2",20) }
+                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#0D0D0D";
+                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_cpu,"%23D9CCCC",20) }
                     }
                     Text { x:46; anchors.verticalCenter:parent.verticalCenter
                         text:Math.round(SystemStats.cpuPct)+"%"
-                        color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
+                        color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
                     Canvas {
                         x:96; y:7; width:parent.width-96; height:40
                         property var hist: cc.cpuHistory
                         onHistChanged: requestPaint()
                         onPaint: {
                             var ctx=getContext("2d"); ctx.clearRect(0,0,width,height)
-                            ctx.strokeStyle="#83a598"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
+                            ctx.strokeStyle="#A68C8A"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
                             for(var i=0;i<hist.length;i++){
                                 var px=i/(hist.length-1)*width
                                 var py=height-(hist[i]/100)*height*0.85
                                 i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)
                             }
                             ctx.stroke()
-                            ctx.fillStyle="#83a598"; ctx.beginPath()
+                            ctx.fillStyle="#A68C8A"; ctx.beginPath()
                             ctx.arc(width, height-(hist[hist.length-1]/100)*height*0.85, 3.5,0,Math.PI*2); ctx.fill()
                         }
                     }
@@ -496,26 +496,26 @@ PanelWindow {
 
                 // TEMP
                 Item { width:parent.width; height:54
-                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#504945";
-                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_therm,"%23ebdbb2",20) }
+                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#0D0D0D";
+                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_therm,"%23D9CCCC",20) }
                     }
                     Text { x:46; anchors.verticalCenter:parent.verticalCenter
                         text:SystemStats.cpuTemp>0?Math.round(SystemStats.cpuTemp)+"°":"--°"
-                        color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
+                        color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
                     Canvas {
                         x:96; y:7; width:parent.width-96; height:40
                         property var hist: cc.tempHistory
                         onHistChanged: requestPaint()
                         onPaint: {
                             var ctx=getContext("2d"); ctx.clearRect(0,0,width,height)
-                            ctx.strokeStyle="#fabd2f"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
+                            ctx.strokeStyle="#594347"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
                             for(var i=0;i<hist.length;i++){
                                 var px=i/(hist.length-1)*width
                                 var py=height-(hist[i]/100)*height*0.85
                                 i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)
                             }
                             ctx.stroke()
-                            ctx.fillStyle="#fabd2f"; ctx.beginPath()
+                            ctx.fillStyle="#594347"; ctx.beginPath()
                             ctx.arc(width, height-(hist[hist.length-1]/100)*height*0.85, 3.5,0,Math.PI*2); ctx.fill()
                         }
                     }
@@ -523,26 +523,26 @@ PanelWindow {
 
                 // RAM
                 Item { width:parent.width; height:54
-                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#504945";
-                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_ram,"%23ebdbb2",20) }
+                    Rectangle { x:0; anchors.verticalCenter:parent.verticalCenter; width:36; height:36; radius:7; color:"#0D0D0D";
+                        Image { anchors.centerIn:parent; width:20; height:20; smooth:true; source:cc.ico(cc.p_ram,"%23D9CCCC",20) }
                     }
                     Text { x:46; anchors.verticalCenter:parent.verticalCenter
                         text:SystemStats.ramGb.toFixed(1)+"G"
-                        color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
+                        color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:15; font.weight:Font.Medium; width:46 }
                     Canvas {
                         x:96; y:7; width:parent.width-96; height:40
                         property var hist: cc.ramHistory
                         onHistChanged: requestPaint()
                         onPaint: {
                             var ctx=getContext("2d"); ctx.clearRect(0,0,width,height)
-                            ctx.strokeStyle="#d3869b"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
+                            ctx.strokeStyle="#A68C8A"; ctx.lineWidth=2; ctx.lineJoin="round"; ctx.beginPath()
                             for(var i=0;i<hist.length;i++){
                                 var px=i/(hist.length-1)*width
                                 var py=height-(hist[i]/100)*height*0.85
                                 i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)
                             }
                             ctx.stroke()
-                            ctx.fillStyle="#d3869b"; ctx.beginPath()
+                            ctx.fillStyle="#A68C8A"; ctx.beginPath()
                             ctx.arc(width, height-(hist[hist.length-1]/100)*height*0.85, 3.5,0,Math.PI*2); ctx.fill()
                         }
                     }
@@ -554,14 +554,14 @@ PanelWindow {
         Rectangle {
             Layout.fillWidth:true; visible:cc.hasMedia
             height: visible ? 192 : 0
-            radius:10; color:"#3c3836"
+            radius:10; color:"#40170E"
 
             RowLayout {
                 anchors { left:parent.left; right:parent.right; top:parent.top; margins:12 }
                 spacing: 14
 
                 // Big album art
-                Rectangle { width:92; height:92; radius:8; color:"#504945"; clip:true
+                Rectangle { width:92; height:92; radius:8; color:"#594347"; clip:true
                     Image {
                         anchors.fill:parent
                         source: cc.player ? (cc.player.trackArtUrl || "") : ""
@@ -570,7 +570,7 @@ PanelWindow {
                     }
                     Image { anchors.centerIn:parent; width:28; height:28; smooth:true
                         visible: !cc.player || (cc.player.trackArtUrl || "") === ""
-                        source: cc.ico(cc.p_music,"%23665c54",28) }
+                        source: cc.ico(cc.p_music,"%23594347",28) }
                 }
 
                 // Controls column (right of art)
@@ -587,28 +587,28 @@ PanelWindow {
 
                         // skip back
                         Item { width:40; height:40
-                            Rectangle { anchors.fill:parent; radius:20; color:sbMa.containsMouse?"#504945":"transparent"
+                            Rectangle { anchors.fill:parent; radius:20; color:sbMa.containsMouse?"#594347":"transparent"
                                 Behavior on color { ColorAnimation { duration:80 } } }
                             Image { anchors.centerIn:parent; width:18; height:18; smooth:true
-                                source:cc.ico(cc.p_skipB,"%23a89984",18) }
+                                source:cc.ico(cc.p_skipB,"%23A68C8A",18) }
                             MouseArea { id:sbMa; anchors.fill:parent; hoverEnabled:true; cursorShape:Qt.PointingHandCursor
                                 onClicked: if(cc.player) cc.player.previous() } }
 
                         // play/pause big
                         Item { width:52; height:52
-                            Rectangle { anchors.fill:parent; radius:26; color:"#504945"
+                            Rectangle { anchors.fill:parent; radius:26; color:"#594347"
                                 Behavior on color { ColorAnimation { duration:80 } } }
                             Image { anchors.centerIn:parent; width:22; height:22; smooth:true
-                                source: cc.ico(cc.player&&cc.player.isPlaying?cc.p_pause:cc.p_play,"%23ebdbb2",22) }
+                                source: cc.ico(cc.player&&cc.player.isPlaying?cc.p_pause:cc.p_play,"%23D9CCCC",22) }
                             MouseArea { anchors.fill:parent; cursorShape:Qt.PointingHandCursor
                                 onClicked: if(cc.player) cc.player.togglePlaying() } }
 
                         // skip fwd
                         Item { width:40; height:40
-                            Rectangle { anchors.fill:parent; radius:20; color:sfMa.containsMouse?"#504945":"transparent"
+                            Rectangle { anchors.fill:parent; radius:20; color:sfMa.containsMouse?"#594347":"transparent"
                                 Behavior on color { ColorAnimation { duration:80 } } }
                             Image { anchors.centerIn:parent; width:18; height:18; smooth:true
-                                source:cc.ico(cc.p_skipF,"%23a89984",18) }
+                                source:cc.ico(cc.p_skipF,"%23A68C8A",18) }
                             MouseArea { id:sfMa; anchors.fill:parent; hoverEnabled:true; cursorShape:Qt.PointingHandCursor
                                 onClicked: if(cc.player) cc.player.next() } }
 
@@ -622,11 +622,11 @@ PanelWindow {
                         Item { Layout.fillWidth:true }
                         Item { width:32; height:32
                             Image { anchors.centerIn:parent; width:16; height:16; smooth:true
-                                source:cc.ico(cc.p_shuf,"%23665c54",16) }
+                                source:cc.ico(cc.p_shuf,"%23594347",16) }
                             MouseArea { anchors.fill:parent; cursorShape:Qt.PointingHandCursor } }
                         Item { width:32; height:32
                             Image { anchors.centerIn:parent; width:16; height:16; smooth:true
-                                source:cc.ico(cc.p_repeat,"%23665c54",16) }
+                                source:cc.ico(cc.p_repeat,"%23594347",16) }
                             MouseArea { anchors.fill:parent; cursorShape:Qt.PointingHandCursor } }
                         Item { Layout.fillWidth:true }
                     }
@@ -640,12 +640,12 @@ PanelWindow {
 
                 Text {
                     text: cc.player ? (cc.player.trackTitle || "Unknown") : ""
-                    color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:16; font.weight:Font.Medium
+                    color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:16; font.weight:Font.Medium
                     Layout.fillWidth:true; elide:Text.ElideRight
                 }
                 Text {
                     text: cc.player ? ((cc.player.trackArtist||"") + (cc.player.trackAlbum ? " · " + cc.player.trackAlbum : "")) : ""
-                    color:"#a89984"; font.family:"Google Sans"; font.pixelSize:13
+                    color:"#A68C8A"; font.family:"Google Sans"; font.pixelSize:13
                     Layout.fillWidth:true; elide:Text.ElideRight; visible:text!==""
                 }
 
@@ -653,14 +653,14 @@ PanelWindow {
                 Item { Layout.fillWidth:true; height:20
                     Text { anchors.left:parent.left; anchors.verticalCenter:parent.verticalCenter
                         text: cc.mediaLen>0 ? formatTime(cc.mediaPos) : "0:00"
-                        color:"#665c54"; font.family:"Google Sans"; font.pixelSize:11 }
+                        color:"#594347"; font.family:"Google Sans"; font.pixelSize:11 }
                     Text { anchors.right:parent.right; anchors.verticalCenter:parent.verticalCenter
                         text: cc.mediaLen>0 ? formatTime(cc.mediaLen) : "0:00"
-                        color:"#665c54"; font.family:"Google Sans"; font.pixelSize:11 }
-                    Rectangle { anchors.centerIn:parent; width:parent.width-56; height:6; radius:3; color:"#504945"
+                        color:"#594347"; font.family:"Google Sans"; font.pixelSize:11 }
+                    Rectangle { anchors.centerIn:parent; width:parent.width-56; height:6; radius:3; color:"#0D0D0D"
                         Rectangle {
                             width: cc.mediaLen>0 ? parent.width*(cc.mediaPos/cc.mediaLen) : 0
-                            height:parent.height; radius:3; color:"#83a598"
+                            height:parent.height; radius:3; color:"#A68C8A"
                             Behavior on width { NumberAnimation { duration:400 } }
                         }
                     }

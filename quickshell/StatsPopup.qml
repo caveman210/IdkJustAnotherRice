@@ -203,8 +203,8 @@ PanelWindow {
 
     // ── Background ────────────────────────────────────────────────────
     Item { anchors.fill:parent; opacity:0.96
-        Rectangle { anchors.fill:parent; color:"#00101C"; radius:10
-            Rectangle { anchors.top:parent.top; anchors.left:parent.left; anchors.right:parent.right; height:10; color:"#00101C" }
+        Rectangle { anchors.fill:parent; color:"#0D0D0D"; radius:10
+            Rectangle { anchors.top:parent.top; anchors.left:parent.left; anchors.right:parent.right; height:10; color:"#0D0D0D" }
         }
     }
 
@@ -218,8 +218,8 @@ PanelWindow {
         spacing: 6
 
         // ── ECG ───────────────────────────────────────────────────────
-        Rectangle { Layout.fillWidth:true; height:168; radius:10; color:"#184153"
-            Repeater { model:2; Rectangle { x:10; y:56+index*54; width:parent.width-20; height:1; color:"#504945"; opacity:0.25 } }
+        Rectangle { Layout.fillWidth:true; height:168; radius:10; color:"#40170E"
+            Repeater { model:2; Rectangle { x:10; y:56+index*54; width:parent.width-20; height:1; color:"#594347"; opacity:0.25 } }
             Column {
                 anchors.left:      parent.left
                 anchors.right:     parent.right
@@ -230,31 +230,31 @@ PanelWindow {
                 spacing:0
 
                 Item { width:parent.width; height:54
-                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#060A10"
-                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_cpu,"%23ebdbb2",16)}}
-                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:Math.round(SystemStats.cpuPct)+"%";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
+                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#0D0D0D"
+                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_cpu,"%23D9CCCC",16)}}
+                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:Math.round(SystemStats.cpuPct)+"%";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
                     Canvas{x:88;y:7;width:parent.width-88;height:40;property var hist:sp.cpuHist;onHistChanged:requestPaint()
-                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#83a598";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#83a598";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
+                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#A68C8A";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#A68C8A";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
                 }
                 Item { width:parent.width; height:54
-                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#060A10"
-                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_therm,"%23ebdbb2",16)}}
-                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:SystemStats.cpuTemp>0?Math.round(SystemStats.cpuTemp)+"°":"--°";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
+                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#0D0D0D"
+                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_therm,"%23D9CCCC",16)}}
+                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:SystemStats.cpuTemp>0?Math.round(SystemStats.cpuTemp)+"°":"--°";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
                     Canvas{x:88;y:7;width:parent.width-88;height:40;property var hist:sp.tempHist;onHistChanged:requestPaint()
-                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#fabd2f";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#fabd2f";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
+                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#594347";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#594347";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
                 }
                 Item { width:parent.width; height:54
-                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#060A10"
-                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_ram,"%23ebdbb2",16)}}
-                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:SystemStats.ramGb.toFixed(1)+"G";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
+                    Rectangle{x:0;anchors.verticalCenter:parent.verticalCenter;width:30;height:30;radius:6;color:"#0D0D0D"
+                        Image{anchors.centerIn:parent;width:16;height:16;smooth:true;source:sp.ico(sp.i_ram,"%23D9CCCC",16)}}
+                    Text{x:40;anchors.verticalCenter:parent.verticalCenter;text:SystemStats.ramGb.toFixed(1)+"G";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium;width:46}
                     Canvas{x:88;y:7;width:parent.width-88;height:40;property var hist:sp.ramHist;onHistChanged:requestPaint()
-                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#d3869b";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#d3869b";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
+                        onPaint:{var c=getContext("2d");c.clearRect(0,0,width,height);c.strokeStyle="#A68C8A";c.lineWidth=1.8;c.lineJoin="round";c.beginPath();for(var i=0;i<hist.length;i++){var px=i/(hist.length-1)*width,py=height-(hist[i]/100)*height*.85;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.fillStyle="#A68C8A";c.beginPath();c.arc(width,height-(hist[hist.length-1]/100)*height*.85,3,0,Math.PI*2);c.fill()}}
                 }
             }
         }
 
         // ── Network ───────────────────────────────────────────────────
-        Rectangle { Layout.fillWidth:true; height:64; radius:10; color:"#184153"
+        Rectangle { Layout.fillWidth:true; height:64; radius:10; color:"#40170E"
             Item {
                 anchors.fill: parent
                 anchors.leftMargin: 14
@@ -266,14 +266,14 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 3
                     Row { spacing:6
-                        Image{width:14;height:14;smooth:true;anchors.verticalCenter:parent.verticalCenter;source:sp.ico(sp.i_down,"%238ec07c",14)}
-                        Text{text:sp.fmtNet(sp.rxKb);color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium;anchors.verticalCenter:parent.verticalCenter}
+                        Image{width:14;height:14;smooth:true;anchors.verticalCenter:parent.verticalCenter;source:sp.ico(sp.i_down,"%23A68C8A",14)}
+                        Text{text:sp.fmtNet(sp.rxKb);color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium;anchors.verticalCenter:parent.verticalCenter}
                     }
-                    Text{text:"Download";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:10}
+                    Text{text:"Download";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:10}
                 }
 
                 // Separator
-                Rectangle { width:1; height:40; color:"#504945"; opacity:0.4; anchors.centerIn:parent }
+                Rectangle { width:1; height:40; color:"#594347"; opacity:0.4; anchors.centerIn:parent }
 
                 // Upload — right half
                 Column {
@@ -281,10 +281,10 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 3
                     Row { spacing:6; layoutDirection:Qt.RightToLeft
-                        Image{width:14;height:14;smooth:true;anchors.verticalCenter:parent.verticalCenter;source:sp.ico(sp.i_up,"%23fe8019",14)}
-                        Text{text:sp.fmtNet(sp.txKb);color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium;anchors.verticalCenter:parent.verticalCenter}
+                        Image{width:14;height:14;smooth:true;anchors.verticalCenter:parent.verticalCenter;source:sp.ico(sp.i_up,"%23594347",14)}
+                        Text{text:sp.fmtNet(sp.txKb);color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium;anchors.verticalCenter:parent.verticalCenter}
                     }
-                    Text{text:"Upload";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:11;anchors.right:parent.right}
+                    Text{text:"Upload";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:11;anchors.right:parent.right}
                 }
             }
         }
@@ -294,7 +294,7 @@ PanelWindow {
             model: sp.diskList.length > 0 ? sp.diskList : [{mount:"/",total:"",used:"",free:"",pct:0}]
             delegate: Rectangle {
                 required property var modelData
-                Layout.fillWidth: true; height: 62; radius: 10; color: "#184153"
+                Layout.fillWidth: true; height: 62; radius: 10; color: "#40170E"
                 Item {
                     anchors.fill: parent
                     anchors.leftMargin: 14; anchors.rightMargin: 14
@@ -306,7 +306,7 @@ PanelWindow {
                         anchors.right: parent.right
                         height: 6; radius: 3; color: "transparent"
                         Text { anchors.right:parent.right; anchors.rightMargin:4; anchors.top:parent.top; anchors.verticalCenter:parent.verticalCenter
-                            text: modelData.pct+"%"; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:10; font.weight:Font.Bold }
+                            text: modelData.pct+"%"; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:10; font.weight:Font.Bold }
                         }
                     Row {
                         anchors.top: parent.top
@@ -314,20 +314,20 @@ PanelWindow {
                         anchors.right: parent.right
                         spacing: 6
                         Image { width:13; height:13; smooth:true; anchors.verticalCenter:parent.verticalCenter
-                            source: sp.ico(sp.i_disk, "%23a89984", 13) }
-                        Text { text: modelData.mount; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium; anchors.verticalCenter:parent.verticalCenter }
+                            source: sp.ico(sp.i_disk, "%23A68C8A", 13) }
+                        Text { text: modelData.mount; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:13; font.weight:Font.Medium; anchors.verticalCenter:parent.verticalCenter }
                         Item { width:1; height:1; Layout.fillWidth:true }
-                        Text { text: modelData.used+" / "+modelData.total; color:"#ebdbb2"; font.family:"Google Sans"; font.pixelSize:12; anchors.verticalCenter:parent.verticalCenter }
+                        Text { text: modelData.used+" / "+modelData.total; color:"#D9CCCC"; font.family:"Google Sans"; font.pixelSize:12; anchors.verticalCenter:parent.verticalCenter }
                     }
 
                     Rectangle {
                         anchors.bottom: parent.bottom
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        height: 6; radius: 3; color: "#504945"
+                        height: 6; radius: 3; color: "#594347"
                         Rectangle {
                             width: parent.width * Math.min(modelData.pct, 100) / 100
-                            height: parent.height; radius: 3; color: "#a89984"
+                            height: parent.height; radius: 3; color: "#A68C8A"
                             Behavior on width { NumberAnimation { duration: 600 } }
                         }
                     }
@@ -336,7 +336,7 @@ PanelWindow {
         }
 
          // ── Host ──────────────────────────────────────────────────────
-        Rectangle { Layout.fillWidth:true; height:62; radius:10; color:"#184153"
+        Rectangle { Layout.fillWidth:true; height:62; radius:10; color:"#40170E"
             Item {
                 anchors.fill: parent
                 anchors.leftMargin: 14
@@ -346,16 +346,16 @@ PanelWindow {
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 3
-                    Text{text:sp.hostname||"";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium}
-                    Text{text:sp.osName||"Linux";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:13}
+                    Text{text:sp.hostname||"";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:16;font.weight:Font.Medium}
+                    Text{text:sp.osName||"Linux";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:13}
                 }
 
                 Column {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 3
-                    Text{text:"Kernel";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:11;anchors.right:parent.right}
-                    Text{text:sp.kernelVer||"";color:"#ebdbb2";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium}
+                    Text{text:"Kernel";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:11;anchors.right:parent.right}
+                    Text{text:sp.kernelVer||"";color:"#D9CCCC";font.family:"Google Sans";font.pixelSize:15;font.weight:Font.Medium}
                 }
             }
         }

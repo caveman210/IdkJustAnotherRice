@@ -13,6 +13,7 @@ pulse/
 systemd/
 vlc/
 zathura/
+starship.toml.backup
 home-manager/flake.lock
 hypr/.luarc.json
 kitty/kitty.conf.bak

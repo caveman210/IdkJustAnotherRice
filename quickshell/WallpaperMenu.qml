@@ -99,12 +99,12 @@ PanelWindow {
         opacity: 0.92
         Rectangle {
             anchors.fill: parent
-            color: "#282828"
+            color: "#0D0D0D"
             radius: 10
             Rectangle {
                 anchors.top: parent.top
                 anchors.left: parent.left; anchors.right: parent.right
-                height: 10; color: "#282828"
+                height: 10; color: "#0D0D0D"
             }
         }
     }
@@ -150,7 +150,7 @@ PanelWindow {
 
                     Rectangle {
                         anchors.fill: parent
-                        radius: 7; clip: true; color: "#3c3836"
+                        radius: 7; clip: true; color: "#40170E"
                         Image {
                             anchors.fill: parent
                             source:       "file://" + card.modelData.thumb
@@ -165,13 +165,13 @@ PanelWindow {
                         radius:        0
                         color:         "transparent"
                         border.width:  card.active ? 3 : (ma.containsMouse ? 2 : 0)
-                        border.color:  card.active ? "#83a598" : "#ebdbb2"
+                        border.color:  card.active ? "#A68C8A" : "#D9CCCC"
                     }
 
                     Rectangle {
                         visible:         card.active
                         width: 10; height: 10; radius: 5
-                        color:           "#83a598"
+                        color:           "#A68C8A"
                         anchors.bottom:  parent.bottom
                         anchors.right:   parent.right
                         anchors.margins: 7
@@ -191,7 +191,7 @@ PanelWindow {
                 visible:                menu.wallpapers.length === 0
                 anchors.verticalCenter: parent.verticalCenter
                 text:  "Generating thumbnails…"
-                color: "#a89984"
+                color: "#A68C8A"
                 font.family: "Google Sans"; font.pixelSize: 13
             }
         }

@@ -40,7 +40,7 @@ PanelWindow {
                 width:  col.width
                 height: row.implicitHeight + 12
                 radius: 10
-                color:  "#282828"
+                color:  "#0D0D0D"
                 opacity: 0.92
 
                 RowLayout {
@@ -64,12 +64,12 @@ PanelWindow {
                                 : Quickshell.iconPath(card.modelData.appIcon, true)
                         }
                         Rectangle {
-                            anchors.fill: parent; radius: 6; color: "#3c3836"
+                            anchors.fill: parent; radius: 6; color: "#40170E"
                             visible: ico.status !== Image.Ready
                             Text {
                                 anchors.centerIn: parent
                                 text: (card.modelData.appName || "?").charAt(0).toUpperCase()
-                                color: "#ebdbb2"; font.pixelSize: 14; font.weight: Font.Bold
+                                color: "#D9CCCC"; font.pixelSize: 14; font.weight: Font.Bold
                             }
                         }
                     }
@@ -82,11 +82,11 @@ PanelWindow {
                             Layout.fillWidth: true
                             Text {
                                 text: card.modelData.appName || ""
-                                color: "#a89984"; font.family: "Google Sans"; font.pixelSize: 12
+                                color: "#A68C8A"; font.family: "Google Sans"; font.pixelSize: 12
                                 Layout.fillWidth: true; elide: Text.ElideRight
                             }
                             Text {
-                                text: "✕"; color: "#57514e"; font.pixelSize: 13
+                                text: "✕"; color: "#594347"; font.pixelSize: 13
                                 MouseArea {
                                     anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                                     onClicked: NotificationService.dismiss(card.modelData)
@@ -97,7 +97,7 @@ PanelWindow {
                         Text {
                             visible: (card.modelData.summary || "") !== ""
                             text: card.modelData.summary || ""
-                            color: "#ebdbb2"; font.family: "Google Sans"
+                            color: "#D9CCCC"; font.family: "Google Sans"
                             font.pixelSize: 15; font.weight: Font.Medium
                             Layout.fillWidth: true; wrapMode: Text.WordWrap
                             maximumLineCount: 2; elide: Text.ElideRight
@@ -106,7 +106,7 @@ PanelWindow {
                         Text {
                             visible: (card.modelData.body || "") !== ""
                             text: card.modelData.body || ""
-                            color: "#a89984"; font.family: "Google Sans"; font.pixelSize: 13
+                            color: "#A68C8A"; font.family: "Google Sans"; font.pixelSize: 13
                             Layout.fillWidth: true; wrapMode: Text.WordWrap
                             maximumLineCount: 2; elide: Text.ElideRight
                             textFormat: Text.PlainText

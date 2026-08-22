@@ -4,7 +4,7 @@ Item {
     id: sl
     property real  value:       50
     property real  maxValue:    100
-    property color accentColor: "#83a598"
+    property color accentColor: "#A68C8A"
     signal moved(real v)
 
     implicitHeight: 22
@@ -13,7 +13,7 @@ Item {
         id: track
         anchors.verticalCenter: parent.verticalCenter
         width: parent.width; height: 5; radius: 2.5
-        color: "#2d3133"
+        color: "#0D0D0D"
 
         Rectangle {
             id: fill
@@ -38,7 +38,7 @@ Item {
         Rectangle {
             anchors.centerIn: parent
             width: parent.width * 0.4; height: width; radius: width / 2
-            color: "#1a1c1e"
+            color: "#0D0D0D"
             opacity: dragMa.pressed ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 80 } }
         }
