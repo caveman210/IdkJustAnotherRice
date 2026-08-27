@@ -378,7 +378,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="open a terminal: kitty" { spawn "kitty"; }
     Mod+W hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
-    Mod+X hotkey-overlay-title="Browse files: nautilus" { spawn "nautilus"; }
+    Mod+F hotkey-overlay-title="Browse files: nautilus" { spawn "nautilus"; }
     Mod+R hotkey-overlay-title="Search applications: vicinae" { spawn-sh "vicinae toggle"; } // Some use for Copilot key
     Super+Shift+F23 hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
     // Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "sddm --test-mode"; } : fix issues with a script ig
@@ -572,8 +572,8 @@ binds {
     Mod+Ctrl+Shift+E { switch-preset-window-height; }
     Mod+Ctrl+E { reset-window-height; }
 
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+X { maximize-column; }
+    Mod+Shift+X { fullscreen-window; }
 
     // While maximize-column leaves gaps and borders around the window,
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.

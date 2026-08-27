@@ -56,20 +56,19 @@
     wireplumber
     gcc
     gdb
+    syncthing
     gnumake
-    texliveBasic
     stremio-service
     ripgrep
     lua
     luarocks
-    starship 
+    starship
     eza
     bat
     go
     chromium
     feh
     vicinae
-    libcap
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

@@ -115,9 +115,27 @@ PanelWindow {
     Timer { interval:600; running:sp.visible; repeat:true; triggeredOnStart:true
         onTriggered: netFv.reload() }
 
-    // ── df -h / ───────────────────────────────────────────────────────
+    // ── df -h ───────────────────────────────────────────────────────
     // Read real block device mounts only
     property var diskList: []
+
+    // Helper function to add a disk entry without duplicates
+    function addDiskEntry(mount, total, used, free, pct) {
+        // Check if this mount already exists
+        for (var i = 0; i < sp.diskList.length; i++) {
+            if (sp.diskList[i].mount === mount) return
+        }
+        var newList = sp.diskList.slice()
+        newList.push({mount: mount, total: total, used: used, free: free, pct: pct})
+        // Sort so root appears first
+        newList.sort(function(a, b) {
+            if (a.mount === "/") return -1
+            if (b.mount === "/") return 1
+            return a.mount.localeCompare(b.mount)
+        })
+        sp.diskList = newList
+    }
+
     Process { id:diskProc
         command:["sh","-c","df -h 2>/dev/null | awk 'NR>1 && ($1~/^\/dev\//) {print $6,$2,$3,$4,$5}'"]
         stdout: SplitParser {
@@ -131,30 +149,52 @@ PanelWindow {
         }
         onRunningChanged: {
             if(!running) {
-                // If no /dev/ partitions found, fallback to showing /
+                // If no /dev/ partitions found, fallback to showing / and /home
                 if(diskProc.stdout._tmp.length===0) {
-                    diskProc2.running=false; diskProc2.running=true
+                    sp.diskList = []  // Clear first
+                    diskProcRoot.running=false
+                    diskProcRoot.running=true
+                    diskProcHome.running=false
+                    diskProcHome.running=true
                 } else {
-                    sp.diskList=diskProc.stdout._tmp.slice()
-                    diskProc.stdout._tmp=[]
+                    // Add all found partitions
+                    sp.diskList = []
+                    var allDisks = diskProc.stdout._tmp.slice()
+                    for (var i = 0; i < allDisks.length; i++) {
+                        sp.addDiskEntry(allDisks[i].mount, allDisks[i].total, allDisks[i].used, allDisks[i].free, allDisks[i].pct)
+                    }
+                    diskProc.stdout._tmp = []
                 }
             } else {
-                diskProc.stdout._tmp=[]
+                diskProc.stdout._tmp = []
             }
         }
         Component.onCompleted: running=true
     }
+
     // Fallback: show / if no /dev/ partitions
-    Process { id:diskProc2; command:["df","-h","/"]
+    Process { id:diskProcRoot; command:["df","-h","/"]
         property bool _hdr: true
         stdout: SplitParser {
             onRead: function(d) {
-                if(diskProc2._hdr){diskProc2._hdr=false;return}
+                if(diskProcRoot._hdr){diskProcRoot._hdr=false;return}
                 var p=d.trim().split(/\s+/)
                 if(p.length<6) return
-                sp.diskList=[
-                    {mount:p[5]||"/",total:p[1],used:p[2],free:p[3],pct:parseInt(p[4].replace("%",""))||0}, 
-                ]
+                sp.addDiskEntry(p[5]||"/", p[1], p[2], p[3], parseInt(p[4].replace("%","")) || 0)
+            }
+        }
+        onRunningChanged: if(!running) _hdr=true
+    }
+
+    // Fallback: show /home if no /dev/ partitions
+    Process { id:diskProcHome; command:["df","-h","/home"]
+        property bool _hdr: true
+        stdout: SplitParser {
+            onRead: function(d) {
+                if(diskProcHome._hdr){diskProcHome._hdr=false;return}
+                var p=d.trim().split(/\s+/)
+                if(p.length<6) return
+                sp.addDiskEntry(p[5]||"/home", p[1], p[2], p[3], parseInt(p[4].replace("%","")) || 0)
             }
         }
         onRunningChanged: if(!running) _hdr=true
