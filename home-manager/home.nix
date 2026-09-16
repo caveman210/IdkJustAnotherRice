@@ -53,6 +53,8 @@
     vlc
     ninja
     brightnessctl
+    wl-mirror
+    jq
     wireplumber
     gcc
     gdb
@@ -64,10 +66,12 @@
     luarocks
     starship
     eza
+    fd
     bat
-    go
+    cava
     chromium
     feh
+    p7zip
     vicinae
   ];
 
@@ -103,8 +107,6 @@
       };
     };
   };
-
-
 
   programs.vicinae = {
     enable = true;

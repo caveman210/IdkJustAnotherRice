@@ -25,6 +25,11 @@
           # vicinae.nixosModules.default
         ];
       };
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.user."george" = {
+        services.opensnitch-ui.enable = true;
+      };
 
       homeConfigurations."george" =
         home-manager.lib.homeManagerConfiguration {

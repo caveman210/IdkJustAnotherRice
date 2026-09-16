@@ -1,11 +1,18 @@
+audacity/
 bluetuith/
 btop/
+Code/
+cava/
+compact/
 dconf/
 environment.d/
+fish/
 git/
 gtk-*/
+hypr/
 mozilla/
 nautilus/
+nextjs-nodejs/
 lazygit/
 nvim/
 obsidian/
@@ -13,8 +20,8 @@ pulse/
 systemd/
 vlc/
 zathura/
+Zulip/
 starship.toml.backup
-home-manager/flake.lock
 hypr/.luarc.json
 kitty/kitty.conf.bak
 nvim/.luarc.json
@@ -25,3 +32,4 @@ chromium/
 go/
 qBittorrent/
 mimeapps.list
+QtProject.conf
