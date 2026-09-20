@@ -8,6 +8,7 @@ Rectangle {
     property url iconSource: ""
     property real value: 0.5
     signal valueChangedByUser(real value)
+    signal iconClicked
     implicitWidth: 473
     implicitHeight: 35
     radius: 20
@@ -69,6 +70,25 @@ Rectangle {
             root.value = newValue
 
             root.valueChangedByUser(newValue)
+        }
+    }
+
+    MouseArea {
+        id: iconArea
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        width: 46
+        height: parent.height
+        cursorShape: Qt.PointingHandCursor
+        hoverEnabled: true
+
+        onPressed: function(mouse) {
+            mouse.accepted = true
+        }
+
+        onClicked: function(mouse) {
+            mouse.accepted = true
+            root.iconClicked()
         }
     }
 }

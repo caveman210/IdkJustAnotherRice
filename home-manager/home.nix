@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nix-index-database, ... }:
 
 {
+  imports = [
+    nix-index-database.homeModules.nix-index
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "george";
@@ -73,6 +76,7 @@
     feh
     p7zip
     vicinae
+    sheldon
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -97,6 +101,13 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.nix-index-database.comma.enable = true;
+  programs.nix-index = {
+    enable = true;
+    package = pkgs.nix-index;
+    # enableZshIntegration = true;
+  };
 
   programs.git = {
     enable = true;

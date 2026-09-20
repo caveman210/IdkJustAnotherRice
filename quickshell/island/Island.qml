@@ -1,6 +1,8 @@
 import QtQuick
 
 import "../styles"
+import "../core"
+import "../components"
 
 Rectangle {
     id: root
@@ -42,5 +44,25 @@ Rectangle {
     ViewHost {
         id: viewHost
         anchors.centerIn: parent
+    }
+
+    // Transient toast for modes without their own StatusManager
+    // indicator (control-center / media / power / theme /
+    // wallpaper). Default mode swaps in OverlayView and expanded
+    // mode shows RightSection's StatusChip, so this covers the
+    // rest and queued toasts are never invisible. Non-interactive
+    // (no handlers, no focus) so modal FocusScope keyboard nav and
+    // IslandInteraction clicks are unaffected, and it floats without
+    // changing the capsule's implicit size.
+    StatusChip {
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.horizontalCenter: parent.horizontalCenter
+        z: 10
+        visible: StatusManager.visible
+            && IslandState.mode !== IslandState.defaultMode
+            && IslandState.mode !== IslandState.expandedMode
+        icon: StatusManager.icon
+        title: StatusManager.title
     }
 }

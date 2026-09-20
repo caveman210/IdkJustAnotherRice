@@ -14,9 +14,9 @@ Item {
         id: batteryReader
         running: true
         command: [
-            "bash",
+            "sh",
             "-c",
-            "cat /sys/class/power_supply/BAT1/capacity && cat /sys/class/power_supply/BAT1/status && cat /sys/class/power_supply/ADP1/online"
+            "cat /sys/class/power_supply/BAT0/capacity && cat /sys/class/power_supply/BAT0/status && cat /sys/class/power_supply/ADP1/online"
         ]
 
         stdout: StdioCollector {
@@ -40,12 +40,17 @@ Item {
         }
     }
 
+    // Relaxed 30s poll (was 5s). Capacity/status change slowly;
+    // 30s granularity is plenty for a status readout.
     Timer {
-        interval: 5000
+        interval: 30000
         running: true
         repeat: true
 
         onTriggered: {
+            if (batteryReader.running)
+                return
+
             batteryReader.running = false
             batteryReader.running = true
         }
@@ -54,22 +59,39 @@ Item {
     function updateIcon() {
         if (pluggedIn) {
             icon = "󰂄"
-
             return
         }
 
         if (percentage >= 95) {
             icon = "󰁹"
-        } else if (percentage >= 75) {
+        } else if (percentage >= 90) {
+            icon = "󰂂"
+        } else if (percentage >= 80) {
+            icon = "󰂁"
+        } else if (percentage >= 70) {
             icon = "󰂀"
-        } else if (percentage >= 50) {
+        } else if (percentage >= 60) {
             icon = "󰁿"
-        } else if (percentage >= 25) {
+        } else if (percentage >= 50) {
             icon = "󰁾"
-        } else if (percentage >= 10) {
+        } else if (percentage >= 40) {
+            icon = "󰁽"
+        } else if (percentage >= 30) {
             icon = "󰁼"
-        } else {
+        } else if (percentage >= 20) {
+            icon = "󰁻"
+        } else if (percentage >= 10) {
             icon = "󰁺"
+        } else if (percentage >= 5){
+            icon = "󱃍"
+        } else {
+            icon = "󱟩"
+        }
+    }
+
+    function colorFlash(){
+        if(percentage <= 25){
+            // 
         }
     }
 }

@@ -1,2 +1,2 @@
-- Bar: [Niriha](https://github.com/tahfizhabib/niriha)
+- Bar: [Luci](https://github.com/ElhamSadiqi/Luci)
 - Color scheme: AI-generated (mostly)

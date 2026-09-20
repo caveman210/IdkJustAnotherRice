@@ -86,11 +86,21 @@ Singleton {
         player.previous()
     }
 
+    // Progress ticker only while actually playing. All metadata
+    // changes arrive via the Connections below + player/list signals.
     Timer {
         interval: 1000
         repeat: true
-        running: true
+        running: root.isPlaying && root.hasPlayer
         onTriggered: root.updatePlayer()
+    }
+
+    Connections {
+        target: Mpris.players
+
+        function onValuesChanged() {
+            root.updatePlayer()
+        }
     }
 
     Connections {

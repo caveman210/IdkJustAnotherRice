@@ -35,13 +35,16 @@ Item {
             var value = Number(parts[1])
 
             if (type === "volume") {
+                // Sync ControlCenter slider without polling.
+                AudioService.update()
+
                 if (value === -1) {
                     StatusManager.show({
                         mode: "volume",
                         icon: "󰝟",
                         title: "Muted",
                         value: -1,
-                        statusWidth: 300,
+                        statusWidth: 280,
                         statusHeight: 33
                     })
 
@@ -66,12 +69,15 @@ Item {
                     icon: icon,
                     title: value + "%",
                     value: value,
-                    statusWidth: 300,
+                    statusWidth: 280,
                     statusHeight: 33
                 })
             }
 
             else if (type === "brightness") {
+                // Sync ControlCenter slider without polling.
+                BrightnessService.update()
+
                 var icon
 
                 if (value < 25)
@@ -86,7 +92,7 @@ Item {
                     icon: icon,
                     title: value + "%",
                     value: value,
-                    statusWidth: 300,
+                    statusWidth: 280,
                     statusHeight: 33
                 })
             }

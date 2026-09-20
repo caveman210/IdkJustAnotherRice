@@ -94,7 +94,7 @@ QtObject {
     // Island
     readonly property int capsuleRadius: 23
     readonly property int leftSectionWidth: 130
-    readonly property int rightSectionWidth: 90
+    readonly property int rightSectionWidth: 132
 
     // Status overlays
     readonly property int statusDefaultWidth: 160
@@ -103,6 +103,10 @@ QtObject {
     readonly property int statusKeyboardWidth: 160
     readonly property int statusVolumeWidth: 280
     readonly property int statusBrightnessWidth: 280
+    readonly property int statusNotificationWidth: 280
+    // Max width for auto-sized device prompts ("device" mode).
+    // OverlayView fits the full text up to this cap, then elides.
+    readonly property int statusDeviceMaxWidth: 460
 
     // =========================================================
     // RADIUS

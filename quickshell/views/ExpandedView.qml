@@ -23,7 +23,7 @@ Item {
         }
 
         Item {
-            width: 520 - 130 - 90 - 28
+            width: 520 - 130 - 132 - 28
             height: parent.height
 
             CenterSection {
@@ -33,7 +33,7 @@ Item {
         }
 
         RightSection {
-            width: 90
+            width: 132
             anchors.verticalCenter: parent.verticalCenter
             batteryService: batteryService
         }

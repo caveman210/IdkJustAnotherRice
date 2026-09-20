@@ -16,13 +16,24 @@ Item {
         font.bold: true
         text: Qt.formatTime(new Date(), "HH:mm")
 
+        // Minute-aligned ticker: fires once, then re-arms for the next
+        // minute boundary instead of waking the QML engine every second
+        // to redraw an identical string 60x per minute.
         Timer {
+            id: tick
             interval: 1000
             running: true
             repeat: true
 
             onTriggered: {
-                clock.text = Qt.formatTime(new Date(), "HH:mm")
+                var now = new Date()
+
+                clock.text = Qt.formatTime(now, "HH:mm")
+
+                tick.interval = Math.max(
+                    1000,
+                    (60 - now.getSeconds()) * 1000
+                )
             }
         }
     }

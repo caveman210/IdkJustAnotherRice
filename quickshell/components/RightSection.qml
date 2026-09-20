@@ -29,6 +29,7 @@ Item {
             radius: 10
             implicitWidth: icons.implicitWidth + 18
             implicitHeight: icons.implicitHeight + 10
+            anchors.verticalCenter: parent.verticalCenter
 
             HoverHandler {
                 cursorShape: Qt.PointingHandCursor
@@ -62,14 +63,78 @@ Item {
                     font.pixelSize: 16
                 }
 
-                Text {
-                    text: batteryService
-                          ? batteryService.icon
-                          : "󰁺"
-                    color: Theme.icon
-                    font.family: "JetBrainsMono Nerd Font"
-                    font.pixelSize: 16
+                Row {
+                    id: batteryRow
+                    spacing: 6
+
+                    HoverHandler {
+                        id: batteryHover
+                    }
+
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: batteryService
+                              ? batteryService.icon
+                              : "󰁺"
+                        color: Theme.icon
+                        font.family: "JetBrainsMono Nerd Font"
+                        font.pixelSize: 16
+                    }
+
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: batteryHover.hovered
+                        text: batteryService
+                              ? batteryService.percentage + "%"
+                              : "--%"
+                        color: Theme.textPrimary
+                        font.pixelSize: 12
+                    }
                 }
+            }
+        }
+
+        Rectangle {
+            id: powerButton
+            color: powerHover.hovered ? Theme.buttonHover : Theme.surface
+            radius: 10
+            implicitWidth: 32
+            implicitHeight: pill.implicitHeight
+            anchors.verticalCenter: parent.verticalCenter
+
+            Behavior on color {
+                ColorAnimation {
+                    duration: Theme.animationFast
+                }
+            }
+
+            HoverHandler {
+                id: powerHover
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            TapHandler {
+                acceptedButtons: Qt.LeftButton
+                gesturePolicy: TapHandler.ReleaseWithinBounds
+
+                onTapped: function(event) {
+                    event.accepted = true
+
+                    if (
+                        IslandState.mode === IslandState.powerMenuMode
+                    )
+                        return
+
+                    IslandController.openPowerMenu()
+                }
+            }
+
+            Text {
+                anchors.centerIn: parent
+                text: ""
+                color: powerHover.hovered ? Theme.iconActive : Theme.icon
+                font.family: "JetBrainsMono Nerd Font"
+                font.pixelSize: 16
             }
         }
     }

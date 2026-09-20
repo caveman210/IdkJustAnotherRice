@@ -4,7 +4,10 @@ import "../services"
 import "../components"
 
 Item {
-    implicitWidth: 160
+    // Base 160 fits Clock (+ Cava when playing). Expand only while the
+    // low-battery warning is shown so the island grows like it does
+    // for other states instead of reserving space permanently.
+    implicitWidth: LowBatteryService.active ? Math.max(160, row.implicitWidth + 32) : 160
     implicitHeight: 33
 
     Row {
@@ -17,6 +20,13 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
         }
 
-        ClockView { }
+        ClockView {
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        LowBatteryIndicator {
+            visible: LowBatteryService.active
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
 }

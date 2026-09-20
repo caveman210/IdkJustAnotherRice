@@ -9,6 +9,13 @@ Item {
     property bool expandedMode: false
     property int maximum: 100
     implicitWidth: {
+        // Explicit caller width wins (all callers pass one).
+        // Fall back to per-mode Theme constants otherwise.
+        // "device" auto-sizes to the full text (capped) so
+        // connect/disconnect prompts never clip mid-word.
+        if (StatusManager.statusWidth > 0)
+            return StatusManager.statusWidth
+
         switch (StatusManager.mode) {
         case "workspace":
             return Theme.statusWorkspaceWidth
@@ -18,12 +25,38 @@ Item {
             return Theme.statusVolumeWidth
         case "brightness":
             return Theme.statusBrightnessWidth
+        case "notification":
+            return Theme.statusNotificationWidth
+        case "device": {
+            let textW = Math.ceil(deviceMetrics.advanceWidth)
+            let iconW = Math.ceil(deviceIconMetrics.advanceWidth)
+            let fitted = 14 + iconW + 10 + textW + 14 + 20
+            return Math.min(fitted, Theme.statusDeviceMaxWidth)
+        }
         default:
             return Theme.statusDefaultWidth
         }
     }
 
     implicitHeight: 33
+
+    // Measures the device prompt title with the same font as the
+    // display text so implicitWidth fits it exactly.
+    TextMetrics {
+        id: deviceMetrics
+        font.pixelSize: 13
+        font.weight: Font.Medium
+        elide: Text.ElideNone
+        text: StatusManager.title
+    }
+
+    TextMetrics {
+        id: deviceIconMetrics
+        font.family: "JetBrainsMono Nerd Font"
+        font.pixelSize: 15
+        elide: Text.ElideNone
+        text: StatusManager.icon
+    }
 
     RowLayout {
         id: rowLayout
@@ -94,6 +127,28 @@ Item {
             color: Theme.textPrimary
             font.pixelSize: 16
             font.weight: Font.Medium
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        Text {
+            visible: StatusManager.mode === "notification"
+            text: StatusManager.title
+            color: Theme.textPrimary
+            font.pixelSize: 13
+            font.weight: Font.Medium
+            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        Text {
+            visible: StatusManager.mode === "device"
+            text: StatusManager.title
+            color: Theme.textPrimary
+            font.pixelSize: 13
+            font.weight: Font.Medium
+            elide: Text.ElideRight
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
         }
 

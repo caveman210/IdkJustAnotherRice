@@ -4,10 +4,32 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
+import "."
+
 Singleton {
     id: root
     property var bars: []
     property bool shouldRun: true
+    property bool ready: false
+
+    // Only run the visualizer while there is actively playing media.
+    // This stops the pipewire feed + scene-graph animations
+    // when paused, idle, or before startup settles.
+    readonly property bool wantRun:
+        shouldRun && ready &&
+        MediaService.hasPlayer && MediaService.isPlaying
+
+    // Imperative start/stop driven by wantRun so crash-restarts
+    // via restartTimer never fight a property binding.
+    onWantRunChanged: {
+        if (root.wantRun) {
+            cava.running = false
+            cava.running = true
+        } else {
+            cava.running = false
+            root.bars = []
+        }
+    }
 
     Process {
         id: cava
@@ -40,7 +62,7 @@ Singleton {
         onExited: function(exitCode, exitStatus) {
             root.bars = []
 
-            if (root.shouldRun)
+            if (root.wantRun)
                 restartTimer.restart()
         }
     }
@@ -52,7 +74,7 @@ Singleton {
         running: true
 
         onTriggered: {
-            cava.running = true
+            root.ready = true
         }
     }
 
@@ -62,7 +84,7 @@ Singleton {
         repeat: false
 
         onTriggered: {
-            if (!root.shouldRun)
+            if (!root.wantRun)
                 return
 
             cava.running = false

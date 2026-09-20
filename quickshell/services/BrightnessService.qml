@@ -4,9 +4,13 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
+import "../core"
+import "../island"
+
 Singleton {
     id: root
     property int brightness: 0
+    property bool _osdReady: false
 
     readonly property url brightnessIcon: {
         if (brightness <= 25)
@@ -31,8 +35,25 @@ Singleton {
 
                 let match = output.match(/\((\d+)%\)/)
 
-                if (match)
-                    root.brightness = parseInt(match[1])
+                if (!match)
+                    return
+
+                let newBrightness = parseInt(match[1])
+
+                let changed = newBrightness !== root.brightness
+
+                root.brightness = newBrightness
+
+                if (!root._osdReady) {
+                    root._osdReady = true
+                    return
+                }
+
+                if (
+                    changed &&
+                    IslandState.mode === IslandState.defaultMode
+                )
+                    root.showOsd()
             }
         }
     }
@@ -46,6 +67,9 @@ Singleton {
     }
 
     function update() {
+        if (queryProcess.running)
+            return
+
         queryProcess.running = false
         queryProcess.running = true
     }
@@ -82,8 +106,32 @@ Singleton {
         )
     }
 
+    function showOsd() {
+        var icon
+
+        if (root.brightness < 25)
+            icon = "󰃞"
+        else if (root.brightness < 60)
+            icon = "󰃟"
+        else
+            icon = "󰃠"
+
+        StatusManager.show({
+            mode: "brightness",
+            icon: icon,
+            title: root.brightness + "%",
+            value: root.brightness,
+            statusWidth: 280,
+            statusHeight: 33
+        })
+    }
+
+    // Safety net only. Changes arrive event-driven via
+    // scripts/brightness.sh -> StatusWatcher (which calls update()),
+    // plus setProcess.onExited above. This 10s poll only catches
+    // external changes (e.g. FN keys bypassing the script).
     Timer {
-        interval: 100
+        interval: 10000
         repeat: true
         running: true
 

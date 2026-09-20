@@ -60,7 +60,16 @@ Item {
 
         label.x = 0
 
-        if (shouldScroll()) {
+        if (root.visible && shouldScroll()) {
+            scrollAnimation.start()
+        }
+    }
+
+    onVisibleChanged: {
+        if (!root.visible) {
+            scrollAnimation.stop()
+            label.x = 0
+        } else if (shouldScroll()) {
             scrollAnimation.start()
         }
     }
@@ -74,7 +83,7 @@ Item {
             scrollAnimation.stop()
             label.x = 0
 
-            if (shouldScroll())
+            if (root.visible && shouldScroll())
                 scrollAnimation.start()
         }
     }

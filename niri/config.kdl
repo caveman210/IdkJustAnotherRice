@@ -431,9 +431,12 @@ binds {
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
     // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    // Volume keys via Luci helpers: same wpctl action as before, plus
+    // they write ~/.cache/quickshell/status/event so the island OSD fires.
+    // (Luci steps are 5%; repeat=true lets held keys keep firing.)
+    XF86AudioRaiseVolume repeat=true allow-when-locked=true { spawn-sh "~/.config/quickshell/scripts/volume.sh up"; }
+    XF86AudioLowerVolume repeat=true allow-when-locked=true { spawn-sh "~/.config/quickshell/scripts/volume.sh down"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "~/.config/quickshell/scripts/volume.sh mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // Example media keys mapping using playerctl.
@@ -446,8 +449,9 @@ binds {
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
     // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    // Brightness keys via Luci helper (writes the status event for the OSD).
+    XF86MonBrightnessUp repeat=true allow-when-locked=true { spawn-sh "~/.config/quickshell/scripts/brightness.sh +5%"; }
+    XF86MonBrightnessDown repeat=true allow-when-locked=true { spawn-sh "~/.config/quickshell/scripts/brightness.sh 5%-"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

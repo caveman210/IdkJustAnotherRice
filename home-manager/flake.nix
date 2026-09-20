@@ -9,10 +9,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     # { nixpkgs, home-manager, stylix, vicinae, ... }:
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, nix-index-database, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -34,6 +39,8 @@
       homeConfigurations."george" =
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+
+          extraSpecialArgs = { inherit nix-index-database; };
 
           modules = [
             ./home.nix

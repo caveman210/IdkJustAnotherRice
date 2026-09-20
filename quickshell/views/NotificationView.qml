@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 
 import "../styles"
 import "../services"
@@ -50,63 +49,64 @@ Item {
             }
         }
 
-        ScrollView {
+        // ListView is already scrollable — no ScrollView wrapper.
+        // (A ListView with only width bound and no height collapses
+        // to 0px inside a ScrollView, which is why the list never
+        // showed even with items in history.)
+        ListView {
+            id: list
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
+            model: NotificationService.history
+            spacing: 10
 
-            ListView {
-                id: list
-                width: parent.width
-                model: NotificationService.history
-                spacing: 10
+            delegate: Rectangle {
+                width: list.width
+                height: Math.max(
+                    100,
+                    notificationColumn.implicitHeight + 24
+                )
 
-                delegate: Rectangle {
-                    width: list.width
-                    height: Math.max(
-                        100,
-                        notificationColumn.implicitHeight + 24
-                    )
+                radius: 12
+                color: Theme.card
 
-                    radius: 12
-                    color: Theme.card
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: 12
+                    spacing: 14
 
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.margins: 12
-                        spacing: 14
+                    //
+                    // Left Preview
+                    //
 
-                        //
-                        // Left Preview
-                        //
+                    Rectangle {
+                        Layout.alignment: Qt.AlignTop
+                        width: 64
+                        height: 64
+                        radius: width / 2
+                        clip: true
+                        color: Theme.surfaceVariant
+                        border.width: 1
+                        border.color: Theme.borderSubtle
 
-                        Rectangle {
-                            Layout.alignment: Qt.AlignTop
-                            width: 64
-                            height: 64
-                            radius: width / 2
-                            clip: true
-                            color: Theme.surfaceVariant
-                            border.width: 1
-                            border.color: Theme.borderSubtle
+                        Image {
+                            id: iconImage
+                            anchors.fill: parent
+                            source: model.icon
+                            asynchronous: true
+                            cache: true
+                            fillMode: Image.PreserveAspectFit
+                            visible: status === Image.Ready
+                        }
 
-                            Image {
-                                id: iconImage
-                                anchors.fill: parent
-                                source: model.icon
-                                asynchronous: true
-                                cache: true
-                                fillMode: Image.PreserveAspectFit
-                                visible: status === Image.Ready
-                            }
-
-                            Text {
-                                anchors.centerIn: parent
-                                visible: iconImage.status !== Image.Ready
-                                text: "󰂚"
-                                font.family: Theme.iconFont
-                                font.pixelSize: 24
-                                color: Theme.icon
+                        Text {
+                            anchors.centerIn: parent
+                            visible: iconImage.status !== Image.Ready
+                            text: "󰂚"
+                            font.family: Theme.iconFont
+                            font.pixelSize: 24
+                            color: Theme.icon
                             }
                         }
 
@@ -196,7 +196,6 @@ Item {
                 }
             }
         }
-    }
 
     Loader {
         anchors.centerIn: parent

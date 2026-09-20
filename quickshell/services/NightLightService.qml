@@ -40,13 +40,10 @@ Singleton {
         }
     }
 
-    Timer {
-        interval: 3000
-        running: root.available
-        repeat: true
-        onTriggered: root.update()
-    }
-
+    // No polling: toggle() sets `enabled` optimistically and
+    // toggleProcess.onExited confirms via update(). An externally
+    // killed hyprsunset won't reflect until the next toggle or
+    // reload — accepted tradeoff for zero idle wakeups.
     function update() {
         if (!root.available)
             return

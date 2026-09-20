@@ -47,8 +47,10 @@ Singleton {
         }
     }
 
+    // Relaxed 10s safety poll (was 1s). Mute state is refreshed
+    // immediately after every local toggle via refreshTimer.
     Timer {
-        interval: 1000
+        interval: 10000
         running: true
         repeat: true
         onTriggered: update()

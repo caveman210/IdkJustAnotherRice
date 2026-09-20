@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 
 import "../core"
@@ -82,6 +83,14 @@ Item {
         })
     }
 
+    function refresh() {
+        if (layoutReader.running)
+            return
+
+        layoutReader.running = false
+        layoutReader.running = true
+    }
+
     Process {
         id: layoutReader
         running: true
@@ -103,14 +112,42 @@ Item {
         }
     }
 
+    // Hyprland: re-query only when the layout actually switches.
+    Connections {
+        enabled: CompositorService.isHyprland
+        target: Hyprland
+
+        function onRawEvent(event) {
+            if (event.name === "activelayout")
+                root.refresh()
+        }
+    }
+
+    // Niri: watch the compositor event stream for layout changes.
+    Process {
+        id: niriEventStream
+        running: CompositorService.isNiri
+        command: ["niri", "msg", "--json", "event-stream"]
+
+        stdout: SplitParser {
+            splitMarker: "\n"
+
+            onRead: function(line) {
+                if (line.indexOf("KeyboardLayoutsChanged") !== -1)
+                    root.refresh()
+            }
+        }
+    }
+
+    // Safety net only (30s). Catches missed events, e.g. if the
+    // compositor restarted and the stream is reconnecting.
     Timer {
-        interval: 300
+        interval: 30000
         running: true
         repeat: true
 
         onTriggered: {
-            layoutReader.running = false
-            layoutReader.running = true
+            root.refresh()
         }
     }
 }

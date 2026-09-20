@@ -2,22 +2,67 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
-import Quickshell.Io
+import Quickshell.Networking
 
-import "../services"
+import "../core"
 
 Singleton {
     id: root
 
     // =========================================================
-    // STATE
+    // D-BUS SOURCE (NetworkManager via Quickshell.Networking)
     // =========================================================
+    // Event-driven. No polling, no `nmcli dev wifi` scans.
+    // Quickshell.Networking uses org.freedesktop.NetworkManager
+    // over D-Bus and emits change signals - this is what fixes
+    // the phantom connect/disconnect flapping caused by the old
+    // 5s `nmcli dev wifi | grep '^yes:'` poller (empty scan
+    // results were misread as disconnects, and forced rescans
+    // every 5s destabilise some drivers).
 
-    property bool connected: false
-    property bool connecting: false
-    property int strength: 0
-    property string ssid: ""
-    property string icon: "󰤮"
+    readonly property var wifiDevice: {
+        const devs = Networking.devices.values;
+        for (let i = 0; i < devs.length; ++i) {
+            if (devs[i].type === DeviceType.Wifi)
+                return devs[i];
+        }
+        return null;
+    }
+
+    readonly property var activeNetwork: {
+        if (!wifiDevice)
+            return null;
+        const nets = wifiDevice.networks.values;
+        for (let i = 0; i < nets.length; ++i) {
+            if (nets[i].connected)
+                return nets[i];
+        }
+        return null;
+    }
+
+    // Public state - kept API-compatible with the old service.
+    property bool enabled: Networking.wifiEnabled
+    property bool available: wifiDevice !== null
+    property bool connected: enabled && activeNetwork !== null && activeNetwork.connected
+    property bool connecting: !connected && enabled && wifiDevice !== null
+        && wifiDevice.state === ConnectionState.Connecting
+    property int strength: (connected && activeNetwork && typeof activeNetwork.signalStrength !== "undefined")
+        ? Math.round(activeNetwork.signalStrength * 100)
+        : 0
+    property string ssid: (connected && activeNetwork) ? activeNetwork.name : ""
+    property string icon: {
+        if (!connected)
+            return "󰤮";
+        if (strength >= 80)
+            return "󰤨";
+        if (strength >= 60)
+            return "󰤥";
+        if (strength >= 40)
+            return "󰤢";
+        if (strength >= 20)
+            return "󰤟";
+        return "󰤯";
+    }
     property string subtitle:
         connected
             ? ssid
@@ -29,84 +74,113 @@ Singleton {
         : Qt.resolvedUrl("../assets/icons/wifi.svg")
 
     // =========================================================
-    // NOTIFICATION STATE
+    // ISLAND STATE (transient only, no notification history)
     // =========================================================
 
-    // Used so Luci doesn't send a notification when
+    // Used so Luci doesn't show an island prompt when
     // the service first starts and reads the current state.
     property bool initialized: false
     property bool previousConnected: false
     property string previousSsid: ""
 
-    // =========================================================
-    // WIFI READER
-    // =========================================================
+    // Connects arrive in D-Bus stages (connected=true before the
+    // network name/signal settle), which used to produce two
+    // prompts: "Connected to " then "Connected to xxxx". Hold
+    // connects briefly so name + strength settle, then show once
+    // with the live strength icon.
+    property bool _pendingConnect: false
 
-    Process {
-        id: wifiReader
-        command: [
-            "bash",
-            "-c",
-            "nmcli -t -f ACTIVE,SIGNAL,SSID dev wifi | grep '^yes:'"
-        ]
+    Timer {
+        id: connectGraceTimer
+        interval: 600
+        repeat: false
 
-        stdout: StdioCollector {
-            onStreamFinished: {
-                let line = text.trim()
-
-                // -------------------------------------------------
-                // Disconnected
-                // -------------------------------------------------
-
-                if (line === "") {
-                    root.connected = false
-                    root.strength = 0
-                    root.ssid = ""
-
-                    root.updateIcon()
-                    root.handleStateChange()
-
-                    return
-                }
-
-                // -------------------------------------------------
-                // Connected
-                // -------------------------------------------------
-
-                let parts = line.split(":")
-
-                root.connected = true
-                root.connecting = false
-
-                root.strength = Number(parts[1])
-                root.ssid = parts.slice(2).join(":")
-
-                root.updateIcon()
-                root.handleStateChange()
-            }
+        onTriggered: {
+            root._flushPendingConnect()
         }
     }
 
-    // =========================================================
-    // WIFI TOGGLE
-    // =========================================================
+    // Strength-tier icon snapshot at flush time. Falls back to
+    // full bars when connected but strength hasn't arrived yet,
+    // so connects never show the wifi-off glyph.
+    function signalIcon() {
+        if (!root.connected)
+            return "󰤮"
 
-    Process {
-        id: wifiToggle
+        if (root.strength >= 80)
+            return "󰤨"
 
-        onExited: {
-            root.update()
-        }
+        if (root.strength >= 60)
+            return "󰤥"
+
+        if (root.strength >= 40)
+            return "󰤢"
+
+        if (root.strength >= 20)
+            return "󰤟"
+
+        if (root.strength > 0)
+            return "󰤯"
+
+        return "󰤨"
     }
+
+    function _flushPendingConnect() {
+        if (!root._pendingConnect)
+            return
+
+        root._pendingConnect = false
+
+        if (!root.connected || root.ssid === "")
+            return
+
+        console.log(
+            "Wi-Fi connected:",
+            root.ssid,
+            root.strength + "%"
+        )
+
+        StatusManager.showQueued({
+            mode: "device",
+            icon: root.signalIcon(),
+            title: "Connected to " + root.ssid,
+            value: 0,
+            statusWidth: 0,
+            statusHeight: 33
+        })
+    }
+
+    // React to D-Bus driven changes only. Strength-only
+    // changes never notify - only connected/ssid transitions.
+    onConnectedChanged: handleStateChange()
+    onSsidChanged: handleStateChange()
 
     // =========================================================
     // STATE CHANGE DETECTION
     // =========================================================
 
+    function isStable() {
+        // D-Bus enumerates in stages (devices -> network -> name).
+        // Don't snapshot half-loaded state as "initial", otherwise
+        // the follow-up name load looks like a network change.
+        if (root.wifiDevice === null)
+            return false;
+        if (Networking.devices.values.length === 0)
+            return false;
+        if (root.connected && root.ssid === "")
+            return false;
+        return true;
+    }
+
     function handleStateChange() {
-        // First reading after Luci starts.
+        // First stable reading after Luci starts.
         // Don't send a notification.
+        // NOTE: Networking.devices populates async (~2s) - the first
+        // D-Bus sync is treated as init so we never spam on boot/reload.
         if (!root.initialized) {
+            if (!isStable())
+                return;
+
             root.previousConnected =
                 root.connected
 
@@ -126,65 +200,58 @@ Singleton {
         }
 
         // -------------------------------------------------
-        // Disconnected → Connected
+        // Connected → Disconnected (immediate, cancels any
+        // pending connect from a fast flap)
         // -------------------------------------------------
 
         if (
-            !root.previousConnected &&
-            root.connected
-        ) {
-            console.log(
-                "Wi-Fi connected:",
-                root.ssid
-            )
-
-            NotificationService.send(
-                "Luci",
-                "Wi-Fi connected",
-                root.ssid
-            )
-        }
-
-        // -------------------------------------------------
-        // Connected → Disconnected
-        // -------------------------------------------------
-
-        else if (
             root.previousConnected &&
             !root.connected
         ) {
+            root._pendingConnect = false
+            connectGraceTimer.stop()
+
+            let lastSsid = root.previousSsid !== ""
+                ? root.previousSsid
+                : "Wi-Fi"
+
             console.log(
-                "Wi-Fi disconnected"
+                "Wi-Fi disconnected from:",
+                lastSsid
             )
 
-            NotificationService.send(
-                "Luci",
-                "Wi-Fi disconnected",
-                ""
-            )
+            StatusManager.showQueued({
+                mode: "device",
+                icon: "󰤮",
+                title: "Disconnected from " + lastSsid,
+                value: 0,
+                statusWidth: 0,
+                statusHeight: 33
+            })
         }
 
         // -------------------------------------------------
-        // Connected → Different network
+        // Disconnected → Connected, or roam to a different
+        // network: debounce through the grace timer so the
+        // staged D-Bus updates (connected=true, then name,
+        // then strength) collapse into ONE prompt with the
+        // live strength icon. Empty-SSID stages are skipped
+        // without saving, so the later name arrival still
+        // counts as the connect event.
         // -------------------------------------------------
 
-        else if (
-            root.previousConnected &&
-            root.connected &&
-            root.previousSsid !== root.ssid
-        ) {
-            console.log(
-                "Wi-Fi network changed:",
-                root.previousSsid,
-                "→",
-                root.ssid
-            )
+        else if (root.connected && root.ssid === "") {
+            return
+        }
 
-            NotificationService.send(
-                "Luci",
-                "Wi-Fi network changed",
-                root.ssid
-            )
+        else if (
+            (!root.previousConnected && root.connected)
+            || (root.previousConnected
+                && root.connected
+                && root.previousSsid !== root.ssid)
+        ) {
+            root._pendingConnect = true
+            connectGraceTimer.restart()
         }
 
         // -------------------------------------------------
@@ -199,93 +266,24 @@ Singleton {
     }
 
     // =========================================================
-    // POLLING
+    // UPDATE (compat no-op)
     // =========================================================
-
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-
-        onTriggered: {
-            root.update()
-        }
-    }
-
-    // =========================================================
-    // UPDATE
-    // =========================================================
+    // Kept so old callers don't break. D-Bus is event-driven,
+    // there is nothing to poll.
 
     function update() {
-        wifiReader.running = false
-        wifiReader.running = true
     }
 
     // =========================================================
-    // TOGGLE WIFI
+    // TOGGLE WIFI (D-Bus rfkill, no nmcli Process)
     // =========================================================
 
     function toggle() {
-        wifiToggle.running = false
-
-        if (connected) {
-            connected = false
-            connecting = false
-
-            strength = 0
-            ssid = ""
-
-            wifiToggle.command = [
-                "nmcli",
-                "radio",
-                "wifi",
-                "off"
-            ]
-        } else {
-            connected = false
-            connecting = true
-
-            strength = 0
-            ssid = ""
-
-            wifiToggle.command = [
-                "nmcli",
-                "radio",
-                "wifi",
-                "on"
-            ]
+        if (!Networking.wifiHardwareEnabled) {
+            console.log("Wi-Fi toggle ignored: hardware blocked (rfkill)");
+            return;
         }
-
-        updateIcon()
-
-        wifiToggle.running = true
-    }
-
-    // =========================================================
-    // ICON
-    // =========================================================
-
-    function updateIcon() {
-        if (!connected) {
-            icon = "󰤮"
-
-            return
-        }
-
-        if (strength >= 80)
-            icon = "󰤨"
-
-        else if (strength >= 60)
-            icon = "󰤥"
-
-        else if (strength >= 40)
-            icon = "󰤢"
-
-        else if (strength >= 20)
-            icon = "󰤟"
-
-        else
-            icon = "󰤯"
+        Networking.wifiEnabled = !Networking.wifiEnabled;
     }
 
     // =========================================================
@@ -294,9 +292,22 @@ Singleton {
 
     Component.onCompleted: {
         console.log(
-            "WifiService loaded"
+            "WifiService loaded (D-Bus backend:",
+            Networking.backend,
+            ")"
         )
 
-        update()
+        // Sync initial state without notifying, but only if D-Bus
+        // has already settled. Otherwise onConnected/onSsid
+        // handlers will init on the first stable D-Bus event.
+        if (isStable()) {
+            root.previousConnected = root.connected;
+            root.previousSsid = root.ssid;
+            root.initialized = true;
+            console.log(
+                "Wi-Fi initial state:",
+                root.connected ? root.ssid : "Disconnected"
+            );
+        }
     }
 }
