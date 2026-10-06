@@ -7,7 +7,14 @@ import "../components"
 Rectangle {
     id: root
     clip: true
-    radius: Theme.capsuleRadius
+    readonly property bool notch: IslandState.shape === IslandState.shapeNotch
+    // Notch reads as a notch only with a flat top hanging from the
+    // screen edge; bottom corners keep the capsule radius. Pill
+    // keeps the uniform radius from before.
+    topLeftRadius: notch ? 0 : Theme.capsuleRadius
+    topRightRadius: notch ? 0 : Theme.capsuleRadius
+    bottomLeftRadius: Theme.capsuleRadius
+    bottomRightRadius: Theme.capsuleRadius
     color: Theme.background
     width: implicitWidth
     height: implicitHeight

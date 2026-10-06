@@ -92,6 +92,34 @@ Item {
             // one that just lost focus.
             if (event.WorkspaceActivated.focused)
                 showNiriWorkspace(event.WorkspaceActivated.id)
+        } else if (event.WindowsChanged) {
+            // Full window list (also sent up-front on stream start).
+            var wins = event.WindowsChanged.windows || []
+            var focused = false
+            var focusKnown = false
+
+            for (var k = 0; k < wins.length; ++k) {
+                if (typeof wins[k].is_focused === "boolean") {
+                    focusKnown = true
+
+                    if (wins[k].is_focused)
+                        focused = true
+                }
+            }
+
+            // Zero windows is authoritative ("no window focused");
+            // otherwise require the is_focused field to be present.
+            if (focusKnown || wins.length === 0)
+                AutoHideService.setNiriWindowFocused(focused)
+        } else if (event.WindowFocusChanged) {
+            // None when no window is focused (e.g. empty workspace).
+            AutoHideService.setNiriWindowFocused(
+                event.WindowFocusChanged.id !== null &&
+                event.WindowFocusChanged.id !== undefined
+            )
+        } else if (event.OverviewOpenedOrClosed) {
+            AutoHideService.overviewOpen =
+                !!event.OverviewOpenedOrClosed.is_open
         }
     }
 

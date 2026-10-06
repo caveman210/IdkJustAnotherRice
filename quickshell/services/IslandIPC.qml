@@ -2,9 +2,14 @@ import Quickshell
 import Quickshell.Io
 
 import "../core"
+import "../services"
 
 IpcHandler {
     target: "luci"
+
+    function focusToggle() {
+        FocusService.toggle()
+    }
 
     function openPowerMenu() {
         IslandController.openPowerMenu()

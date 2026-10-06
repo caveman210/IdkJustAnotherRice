@@ -11,6 +11,7 @@ ShellRoot {
     IslandIPC {}
 
     IslandWindow {}
+    EdgeTriggerWindow {}
 
     Component.onCompleted: {
         // Force the NotificationService singleton to instantiate at

@@ -6,11 +6,13 @@ import "../components"
 import "../core"
 import "../views"
 import "../services"
+import "../island"
 
 Item {
     id: root
     clip: true
     property Item wifiSvc
+    property bool shapeDropdownOpen: false
     implicitWidth: 520
     implicitHeight: 530
 
@@ -111,6 +113,14 @@ Item {
             }
 
             ControlCard {
+                iconSource: AutoHideService.icon
+                title: "Auto-Hide"
+                subtitle: AutoHideService.subtitle
+                active: AutoHideService.enabled
+                onClicked: AutoHideService.toggle()
+            }
+
+            ControlCard {
                 iconSource: MediaService.icon
                 title: "Media"
                 subtitle: MediaService.subtitle
@@ -118,6 +128,23 @@ Item {
 
                 onClicked: {
                     IslandController.openMediaControls()
+                }
+            }
+
+            ControlCard {
+                id: shapeCard
+                iconSource: Qt.resolvedUrl("../assets/icons/pill.svg")
+                title: "Shape"
+                subtitle: IslandState.shape === IslandState.shapeNotch ? "Notch" : "Pill"
+
+                onClicked: {
+                    var p = shapeCard.mapToItem(root, 0, shapeCard.height)
+                    shapeDropdown.x = Math.max(
+                        8,
+                        Math.min(p.x, root.width - shapeDropdown.width - 8)
+                    )
+                    shapeDropdown.y = p.y + 6
+                    root.shapeDropdownOpen = true
                 }
             }
         }
@@ -158,5 +185,23 @@ Item {
                 anchors.margins: 14
             }
         }
+    }
+
+    // Tap-outside-to-close catcher for the shape dropdown. Only
+    // present while the dropdown is open.
+    MouseArea {
+        anchors.fill: parent
+        visible: root.shapeDropdownOpen
+        z: 900
+
+        onClicked: root.shapeDropdownOpen = false
+    }
+
+    ShapeDropdown {
+        id: shapeDropdown
+        z: 901
+        visible: root.shapeDropdownOpen
+
+        onClosed: root.shapeDropdownOpen = false
     }
 }

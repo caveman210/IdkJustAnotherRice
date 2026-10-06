@@ -134,10 +134,10 @@ Singleton {
             icon = "󰕿"
         else if (root.volume < 50)
             icon = "󰖀"
-        else if (root.volume < 70)
+        else if (root.volume <= 100)
             icon = "󰕾"
         else
-            icon = ""
+            icon = "󰝝"
 
         StatusManager.show({
             mode: "volume",

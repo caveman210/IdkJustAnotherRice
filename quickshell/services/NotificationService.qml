@@ -13,6 +13,32 @@ Singleton {
     property int unreadCount: 0
     property url defaultIcon: "../assets/icons/bell.svg"
 
+    // Notifications suppressed while Focus was on. In-memory only
+    // (like FocusService) — resets on reload.
+    property int missedWhileFocus: 0
+
+    // Shared notification toast path. Focus gates the OSD: the
+    // notification still lands in history with its unread bump,
+    // it just never pops up. The tally is reported in one toast
+    // when Focus turns off (Connections below).
+    function osdToast(title) {
+        if (FocusService.enabled) {
+            root.missedWhileFocus++
+            console.log("TEST suppressed:", title, "tally:", root.missedWhileFocus)
+            return
+        }
+
+        console.log("TEST shown:", title)
+        StatusManager.showQueued({
+            mode: "notification",
+            icon: "󰂚",
+            title: String(title || "Notification"),
+            value: 0,
+            statusWidth: 280,
+            statusHeight: 33
+        })
+    }
+
     function getAppIcon(notification) {
         let icon = notification.appIcon
 
@@ -93,19 +119,15 @@ Singleton {
             // notification (OverlayView), expanded view shows it as a
             // StatusChip (RightSection), other modes via Island's
             // floating chip. Queued so bursts never overwrite each
-            // other. Auto-hides via StatusManager.
-            StatusManager.showQueued({
-                mode: "notification",
-                icon: "󰂚",
-                title: String(
+            // other. Auto-hides via StatusManager. Suppressed while
+            // Focus is on (counted for the focus-off summary).
+            root.osdToast(
+                String(
                     notification.summary ||
                     notification.appName ||
                     "Notification"
-                ),
-                value: 0,
-                statusWidth: 280,
-                statusHeight: 33
-            })
+                )
+            )
 
             console.log(
                 "Notification:",
@@ -139,6 +161,38 @@ Singleton {
         }
     }
 
+    // Focus off: report everything that was suppressed as a single
+    // toast. Shown directly (never via osdToast) so it can't be
+    // gated or tallied against itself, and it creates no history
+    // entry — the notifications themselves are already in the center.
+    Connections {
+        target: FocusService
+
+        function onEnabledChanged() {
+            if (FocusService.enabled)
+                return
+
+            let missed = root.missedWhileFocus
+
+            root.missedWhileFocus = 0
+
+            if (missed === 0)
+                return
+
+            console.log("TEST summary toast:", missed)
+            StatusManager.showQueued({
+                mode: "notification",
+                icon: "󰂚",
+                title: missed === 1
+                    ? "1 notification has been missed"
+                    : missed + " notifications have been missed",
+                value: 0,
+                statusWidth: 280,
+                statusHeight: 33
+            })
+        }
+    }
+
     // Pending send() args, used for local fallback (below).
     property string pendingApp: ""
     property string pendingSummary: ""
@@ -158,14 +212,7 @@ Singleton {
 
         root.unreadCount++
 
-        StatusManager.showQueued({
-            mode: "notification",
-            icon: "󰂚",
-            title: String(summary || app || "Notification"),
-            value: 0,
-            statusWidth: 280,
-            statusHeight: 33
-        })
+        root.osdToast(String(summary || app || "Notification"))
     }
 
     Process {

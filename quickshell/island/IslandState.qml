@@ -16,6 +16,16 @@ QtObject {
     readonly property int mediaControlsMode: 6
 
     // =========================================================
+    // SHAPE
+    // =========================================================
+
+    readonly property int shapePill: 0
+    readonly property int shapeNotch: 1
+
+    // In-memory only (like AutoHideService) — resets on reload.
+    property int shape: shapePill
+
+    // =========================================================
     // STATE
     // =========================================================
 
@@ -23,6 +33,7 @@ QtObject {
     property bool islandPinned: false
     property bool returnToExpanded: false
     property bool ignoreNextIslandTap: false
+    property bool islandHovered: false
 
     // =========================================================
     // DERIVED STATE

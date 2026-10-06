@@ -9,6 +9,7 @@ Item {
 
     function handleHoverChanged(isHovered) {
         root.hovered = isHovered
+        IslandState.islandHovered = isHovered
 
         if (IslandState.modal)
             return

@@ -59,10 +59,10 @@ Item {
                     icon = "󰕿"
                 else if (value < 50)
                     icon = "󰖀"
-                else if (value < 70)
+                else if (value <= 100)
                     icon = "󰕾"
                 else
-                    icon = ""
+                    icon = "󰝝"
 
                 StatusManager.show({
                     mode: "volume",

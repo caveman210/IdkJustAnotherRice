@@ -41,7 +41,9 @@ Item {
                 return mediaView
 
             default:
-                return defaultView
+                return IslandState.shape === IslandState.shapeNotch
+                    ? notchView
+                    : defaultView
             }
         }
     }
@@ -49,6 +51,11 @@ Item {
     Component {
         id: defaultView
         DefaultView { }
+    }
+
+    Component {
+        id: notchView
+        NotchView { }
     }
 
     Component {

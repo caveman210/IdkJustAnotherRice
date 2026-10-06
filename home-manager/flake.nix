@@ -1,10 +1,8 @@
 {
-  description = "Home Manager configuration of george";
+  description = "George - Home Manager configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    # vicinae.url = "github:vicinaehq/vicinae";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,8 +14,12 @@
     };
   };
   outputs =
-    # { nixpkgs, home-manager, stylix, vicinae, ... }:
-    { nixpkgs, home-manager, nix-index-database, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      nix-index-database,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -27,27 +29,21 @@
         system = system; # e.g., x86_64-linux
         modules = [
           # ... your other configuration modules ...
-          # vicinae.nixosModules.default
         ];
       };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.user."george" = {
-        services.opensnitch-ui.enable = true;
       };
 
-      homeConfigurations."george" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+      formatter.${system} = pkgs.nixfmt-tree;
 
-          extraSpecialArgs = { inherit nix-index-database; };
-
-          modules = [
-            ./home.nix
-            # stylix.homeModules.stylix
-            # vicinae.homeManagerModules.default
-          ];
-        };
+      homeConfigurations."george" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit nix-index-database; };
+        modules = [
+          ./home.nix
+        ];
+      };
     };
 }
-

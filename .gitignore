@@ -10,6 +10,7 @@ fish/
 git/
 gtk-*/
 hypr/
+libreoffice*/
 mozilla/
 nautilus/
 nextjs-nodejs/
@@ -18,6 +19,7 @@ nvim/
 obsidian/
 pulse/
 systemd/
+Slack/
 vlc/
 zathura/
 Zulip/

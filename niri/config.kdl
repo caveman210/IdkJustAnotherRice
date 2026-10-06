@@ -175,7 +175,7 @@ layout {
     // You can change the default width of the new windows.
     // default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
-    default-column-width {}
+    default-column-width { proportion 1.0; }
 
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
@@ -313,7 +313,7 @@ environment {
 spawn-at-startup "awww-daemon"
 spawn-at-startup "qs"
 spawn-at-startup "vicinae server"
-spawn-at-startup "syncthing"
+// spawn-at-startup "syncthing"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

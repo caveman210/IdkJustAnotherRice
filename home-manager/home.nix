@@ -1,8 +1,14 @@
-{ config, pkgs, nix-index-database, ... }:
+{
+  config,
+  pkgs,
+  nix-index-database,
+  ...
+}:
 
 {
   imports = [
     nix-index-database.homeModules.nix-index
+    ./zsh-conf.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -76,7 +82,8 @@
     feh
     p7zip
     vicinae
-    sheldon
+    nodejs
+    libreoffice
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
