@@ -25,7 +25,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      nixosConfigurations."george" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."caveman" = nixpkgs.lib.nixosSystem {
         system = system; # e.g., x86_64-linux
         modules = [
           # ... your other configuration modules ...
@@ -33,12 +33,12 @@
       };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.user."george" = {
+      home-manager.user."caveman" = {
       };
 
       formatter.${system} = pkgs.nixfmt-tree;
 
-      homeConfigurations."george" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."caveman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit nix-index-database; };
         modules = [

@@ -15,7 +15,6 @@ mozilla/
 nautilus/
 nextjs-nodejs/
 lazygit/
-nvim/
 obsidian/
 pulse/
 systemd/
@@ -24,9 +23,7 @@ vlc/
 zathura/
 Zulip/
 starship.toml.backup
-hypr/.luarc.json
 kitty/kitty.conf.bak
-nvim/.luarc.json
 nvim/spell/
 nvim/lazy-lock.json
 autostart/
@@ -35,3 +32,5 @@ go/
 qBittorrent/
 mimeapps.list
 QtProject.conf
+*/.luarc.json
+*/.zcompdump

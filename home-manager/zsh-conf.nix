@@ -156,6 +156,21 @@
         vicmd_symbol = "[❮](bold blue)";
       };
 
+      custom.latex = {
+        detect_extensions = [
+          "tex"
+          "sty"
+          "cls"
+          "bib"
+        ];
+        detect_files = [
+          "latexmkrc"
+          "latexmkrc"
+        ];
+        symbol = "📝 ";
+        format = "[$symbol]($style)";
+      };
+
       bun.format = "via []($style)";
       buf.format = "with [⎈]($style)";
       c.format = "via []($style)";

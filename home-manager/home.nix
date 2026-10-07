@@ -12,8 +12,8 @@
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "george";
-  home.homeDirectory = "/home/george";
+  home.username = "caveman";
+  home.homeDirectory = "/home/caveman";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -24,6 +24,9 @@
   # release notes.
   home.stateVersion = "26.05"; # Please read the comment before changing.
   nixpkgs.config.allowUnfree = true;
+
+  xdg.enable = true;
+  targets.genericLinux.enable = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -46,7 +49,6 @@
     # '')
     btop
     lazygit
-    kitty
     yazi
     firefox
     nautilus
@@ -113,7 +115,13 @@
   programs.nix-index = {
     enable = true;
     package = pkgs.nix-index;
-    # enableZshIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.vicinae = {
+    enable = true;
+    package = pkgs.vicinae;
+    settings.launcher_window.layer_shell.enabled = true;
   };
 
   programs.git = {
@@ -124,11 +132,5 @@
         email = "illustrio7077@gmail.com";
       };
     };
-  };
-
-  programs.vicinae = {
-    enable = true;
-    package = pkgs.vicinae;
-    useLayerShell = true;
   };
 }

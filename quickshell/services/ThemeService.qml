@@ -18,12 +18,12 @@ Singleton {
         ListElement {
             themeId: "monochrome"
             name: "Monochrome"
-            background: "#000000"
-            color1: "#000000"
-            color2: "#202020"
-            color3: "#505050"
-            accent: "#E5E7EB"
-            text: "#E5E7EB"
+            background: "#120C0B"
+            color1: "#C98B73"
+            color2: "#211513"
+            color3: "#493029"
+            accent: "#C98B73"
+            text: "#F1E9E4"
         }
 
         ListElement {
