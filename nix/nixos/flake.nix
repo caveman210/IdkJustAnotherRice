@@ -10,6 +10,7 @@
     };
 
     qylock.url = "github:Darkkal44/qylock";
+    qylock.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, qylock, ... }@inputs: {

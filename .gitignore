@@ -8,7 +8,6 @@ dconf/
 environment.d/
 fish/
 git/
-gtk-*/
 hypr/
 libreoffice*/
 mozilla/
@@ -17,15 +16,12 @@ nextjs-nodejs/
 lazygit/
 obsidian/
 pulse/
+Proton/
 systemd/
 Slack/
 vlc/
 zathura/
 Zulip/
-starship.toml.backup
-kitty/kitty.conf.bak
-nvim/spell/
-nvim/lazy-lock.json
 autostart/
 chromium/
 go/

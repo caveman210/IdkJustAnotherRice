@@ -302,6 +302,9 @@ environment {
     CLUTTER_BACKEND "wayland"
     GDK_BACKEND "wayland"
     MOZ_ENABLE_WAYLAND "1"
+    OZONE_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "wayland"
+    NIXOS_OZONE_WL "1"
 }
 
 // Add lines like this to spawn processes at startup.
@@ -310,9 +313,10 @@ environment {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "awww-daemon"
+spawn-sh-at-startup "awww-daemon"
+spawn-sh-at-startup "vicinae server"
+spawn-sh-at-startup "stremio-server"
 spawn-at-startup "qs"
-spawn-at-startup "vicinae server"
 // spawn-at-startup "syncthing"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:

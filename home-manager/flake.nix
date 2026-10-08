@@ -19,7 +19,7 @@
       home-manager,
       nix-index-database,
       ...
-    }:
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -27,6 +27,7 @@
     {
       nixosConfigurations."caveman" = nixpkgs.lib.nixosSystem {
         system = system; # e.g., x86_64-linux
+        specialArgs = { inherit inputs; };
         modules = [
           # ... your other configuration modules ...
         ];

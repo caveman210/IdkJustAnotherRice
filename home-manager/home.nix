@@ -8,7 +8,8 @@
 {
   imports = [
     nix-index-database.homeModules.nix-index
-    ./zsh-conf.nix
+    ./modules/zsh-conf.nix
+    ./modules/gtk.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -26,7 +27,7 @@
   nixpkgs.config.allowUnfree = true;
 
   xdg.enable = true;
-  targets.genericLinux.enable = true;
+  # targets.genericLinux.enable = true;     # for non-NixOS
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -65,6 +66,7 @@
     ninja
     brightnessctl
     wl-mirror
+    wl-clipboard
     jq
     wireplumber
     gcc
@@ -76,7 +78,6 @@
     lua
     luarocks
     starship
-    eza
     fd
     bat
     cava
@@ -108,8 +109,13 @@
     EDITOR = "nvim";
   };
 
+  home.backupFileExtension = "backup";
+
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+    # overwriteBackup = true;
+  };
 
   programs.nix-index-database.comma.enable = true;
   programs.nix-index = {
@@ -121,7 +127,17 @@
   programs.vicinae = {
     enable = true;
     package = pkgs.vicinae;
-    settings.launcher_window.layer_shell.enabled = true;
+    settings = {
+      launcher_window.layer_shell.enabled = true;
+      theme = {
+        dark = {
+          name = "gruvbox-dark";
+        };
+        light = {
+          name = "gruvbox-light";
+        };
+      };
+    };
   };
 
   programs.git = {

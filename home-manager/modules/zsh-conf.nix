@@ -32,16 +32,14 @@
 
       ANDROID_HOME = "$HOME/Android/Sdk";
       JAVA_HOME = "$HOME/DevTools/android-studio/jbr";
-
       CHROME_EXECUTABLE = "/usr/bin/chromium";
-
       PYENV_ROOT = "$HOME/.pyenv";
       NVM_DIR = "$HOME/.nvm";
       PNPM_HOME = "$HOME/.local/share/pnpm";
     };
 
     shellAliases = {
-      ls = "eza -lah";
+      ls = "eza --icons -lah";
       cat = "bat";
       androidstudio = "$HOME/DevTools/android-studio/bin/studio.sh";
     };
@@ -99,6 +97,7 @@
       [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
     '';
   };
+
   programs.zoxide.enableZshIntegration = true;
 
   programs.starship = {
@@ -231,5 +230,12 @@
         symbol = "📦 ";
       };
     };
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    git = true;
+    icons = "auto";
   };
 }

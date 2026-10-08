@@ -39,12 +39,12 @@
   hardware = {
   	graphics = {
 		enable = true;
-		enable32Bit = true;
+		#enable32Bit = true;
 	};
 
 	amdgpu = {
 		initrd.enable = true;
-		zluda.enable = true;
+		#zluda.enable = true;
 	};
 
 	bluetooth = {
@@ -100,9 +100,10 @@
   users.users."caveman" = {
     isNormalUser = true;
     description = "caveman";
-    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
+	mesa-demos
     	xwayland-satellite
 	proton-vpn
 	wireguard-tools
@@ -111,6 +112,7 @@
 	bluez
 	bluetuith
 	wireplumber
+	brightnessctl
 	nh
 	unzip
 	gnumake
@@ -133,6 +135,14 @@
   services.udisks2.enable = true;
   programs.niri.enable = true;
   programs.zsh.enable = true;
+
+  services.pipewire = {
+	enable = true;
+	alsa.enable = true;
+	alsa.support32Bit = true;
+	pulse.enable = true;
+	jack.enable = true;
+	};
 
   services.tlp = {
   	enable = true;

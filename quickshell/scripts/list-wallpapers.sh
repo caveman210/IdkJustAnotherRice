@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-find "$HOME/Pictures/wallpapers" \
+find "$HOME/Pictures/Wallpapers" \
     -maxdepth 1 \
     -type f \
     \( \
