@@ -7,9 +7,9 @@ Singleton {
     id: root
     property bool enabled: false
     property string subtitle: enabled ? "Enabled" : "Off"
-    property url icon: enabled
-        ? Qt.resolvedUrl("../assets/icons/bell.svg")
-        : Qt.resolvedUrl("../assets/icons/bell-off.svg")
+    property string icon: enabled
+        ? "󰂚"
+        : "󰂛"
 
     function toggle() {
         enabled = !enabled

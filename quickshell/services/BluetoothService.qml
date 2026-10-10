@@ -54,11 +54,11 @@ Singleton {
         return enabled ? "On" : "Off"
     }
 
-    property url icon: !enabled
-        ? Qt.resolvedUrl("../assets/icons/bluetooth-off.svg")
+    property string icon: !enabled
+        ? "󰂲"
         : connected
-            ? Qt.resolvedUrl("../assets/icons/bluetooth-connected.svg")
-            : Qt.resolvedUrl("../assets/icons/bluetooth.svg")
+            ? "󰂱"
+            : "󰂯"
 
     // =========================================================
     // ISLAND POPUP STATE

@@ -7,11 +7,17 @@ import "../components"
 
 Item {
     id: root
-    // Wider than the 160 pill so the centered clock clears the
-    // privacy cluster on the left and the battery icon on the
-    // right. Expand only while the low-battery warning is shown,
-    // like the pill does. No Cava here by design.
-    implicitWidth: LowBatteryService.active ? Math.max(210, row.implicitWidth + 32) : 210
+    // Notch reads as a notch only with a flat top hanging from the
+    // screen edge; bottom corners keep the capsule radius. Pill
+    // keeps the uniform radius from before.
+    //
+    // The right end already belongs to the battery glyph, so privacy
+    // indicators stay grouped on the left (split: false). Activating
+    // one adds the full three-slot run to the base 210 so the run
+    // never resizes as individual devices come and go.
+    implicitWidth: indicators.anyActive
+                       ? 210 + indicators.leftWidth + indicators.rightWidth
+                       : 210
     implicitHeight: 33
 
     BatteryService {
@@ -19,6 +25,8 @@ Item {
     }
 
     PrivacyIndicators {
+        id: indicators
+        split: false
         anchors.left: parent.left
         anchors.leftMargin: 12
         anchors.verticalCenter: parent.verticalCenter

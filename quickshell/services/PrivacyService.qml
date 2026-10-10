@@ -30,6 +30,13 @@ Singleton {
     property bool externalDisplayConnected: false
     property bool screenSharingActive: false
 
+    // Which apps are currently capturing, for the privacy panel.
+    // Populated from the pw-dump stream pass only, so a device taken
+    // through a direct /dev/video* or ALSA open shows as "in use"
+    // with an empty list — the same blind spot as the v4l2 probe.
+    property var micApps: []
+    property var cameraApps: []
+
     // Stream-driven states, kept separate so the pw-dump parse and
     // the sysfs//proc probe can update the combined states
     // independently.
@@ -64,6 +71,29 @@ Singleton {
                 var mic = false
                 var cam = false
                 var stream = false
+                var micApps = []
+                var cameraApps = []
+
+                // Stable label for a capture node, preferring the
+                // application name over the bare node name.
+                function captureLabel(nodeName, appName) {
+                    if (appName)
+                        return appName
+
+                    if (nodeName) {
+                        // Strip the common lib prefixes so
+                        // "Firefox" reads as "Firefox" rather than
+                        // "Firefox Web Content".
+                        return nodeName
+                    }
+
+                    return "Unknown"
+                }
+
+                function pushUnique(list, value) {
+                    if (list.indexOf(value) === -1)
+                        list.push(value)
+                }
 
                 try {
                     var objects = JSON.parse(text)
@@ -93,22 +123,34 @@ Singleton {
                             var appName = props["application.name"] || ""
                             var isMonitor = (capSink === true || capSink === "true" || capSink === 1 || capSink === "1")
                             var isSelf = (nodeName === "cava" || appName === "cava")
-                            if (!isMonitor && !isSelf)
+                            if (!isMonitor && !isSelf) {
                                 mic = true
+
+                                pushUnique(
+                                    micApps,
+                                    captureLabel(nodeName, appName)
+                                )
+                            }
                         } else if (cls === "Stream/Input/Video") {
                             // Defensive: ignore monitor/preview captures
                             // if a future consumer ever flags them.
                             var vMon = props["stream.monitor"]
                             var vCapSink = props["stream.capture.sink"]
                             var vIsMonitor = (vMon === true || vMon === "true" || vCapSink === true || vCapSink === "true")
-                            if (!vIsMonitor)
+                            if (!vIsMonitor) {
                                 cam = true
+
+                                pushUnique(
+                                    cameraApps,
+                                    captureLabel(
+                                        props["node.name"] || "",
+                                        props["application.name"] || ""
+                                    )
+                                )
+                            }
                         } else if (cls === "Stream/Output/Video") {
                             stream = true
                         }
-
-                        if (mic && cam && stream)
-                            break
                     }
                 } catch (e) {
                     console.warn("PrivacyService: pw-dump parse failed: " + e)
@@ -121,6 +163,12 @@ Singleton {
                 root.cameraActive = cam || root._v4l2Open
                 root._streamActive = stream
                 root.screenSharingActive = stream || root.externalDisplayConnected
+
+                // Rebuilt each pass rather than mutated in place so
+                // the Repeater/model sees a change even when the
+                // labels are identical.
+                root.micApps = micApps
+                root.cameraApps = cameraApps
             }
         }
     }

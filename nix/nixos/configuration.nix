@@ -1,67 +1,66 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }: 
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot = {
-  	supportedFilesystems = [ "ntfs" ];
-	loader = {
-		efi.canTouchEfiVariables = true;
-		grub.enable = false;
-		systemd-boot.enable = true;
-	};
-	kernelPackages = pkgs.linuxPackages_latest;
+    supportedFilesystems = ["ntfs"];
+    loader = {
+      efi.canTouchEfiVariables = true;
+      # grub.enable = false;
+      systemd-boot.enable = true;
+      # refind.enable = true;
+      # refind.package = pkgs.refind;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
-
-  # boot.loader.refind.enable = true;
-  # boot.loader.refind.package = pkgs.refind;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   # Enable networking
-
   networking = {
-  	hostName = "nixpad";
-	wireless.enable = true;
-	networkmanager.enable = true;
-	firewall.checkReversePath = false;
+    hostName = "nixpad";
+    wireless.enable = true;
+    networkmanager.enable = true;
+    firewall.checkReversePath = false;
   };
 
   hardware = {
-  	graphics = {
-		enable = true;
-		#enable32Bit = true;
-	};
+    graphics = {
+      enable = true;
+      #enable32Bit = true;
+    };
 
-	amdgpu = {
-		initrd.enable = true;
-		#zluda.enable = true;
-	};
+    amdgpu = {
+      initrd.enable = true;
+      #zluda.enable = true;
+    };
 
-	bluetooth = {
-		enable = true;
-		powerOnBoot = false;
-	};
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
   };
 
   # Testing purposes only
   # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix = {
-  	settings = {
-		auto-optimise-store = true;
-	};
-	extraOptions = ''
-		experimental-features = nix-command flakes
-		'';
+    settings = {
+      auto-optimise-store = true;
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
   };
 
   # Set your time zone.
@@ -83,10 +82,10 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
-    model = "pc105";     # Standard layout map that includes laptop keys
+    model = "pc105"; # Standard layout map that includes laptop keys
     variant = "";
   };
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
 
   virtualisation = {
     containers.enable = true;
@@ -100,33 +99,33 @@
   users.users."caveman" = {
     isNormalUser = true;
     description = "caveman";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" ];
+    extraGroups = ["networkmanager" "wheel" "video" "audio" "render"];
     shell = pkgs.zsh;
     packages = with pkgs; [
-	mesa-demos
-    	xwayland-satellite
-	proton-vpn
-	wireguard-tools
-	btop
-	fastfetch
-	bluez
-	bluetuith
-	wireplumber
-	brightnessctl
-	nh
-	unzip
-	gnumake
-	pipewire
-	starship
-	bat
-	eza
-	fzf
+      mesa-demos
+      xwayland-satellite
+      proton-vpn
+      wireguard-tools
+      btop
+      fastfetch
+      bluez
+      bluetuith
+      wireplumber
+      brightnessctl
+      nh
+      unzip
+      gnumake
+      pipewire
+      starship
+      bat
+      eza
+      fzf
     ];
   };
 
   fonts.packages = with pkgs; [
-  	nerd-fonts.jetbrains-mono
-  	nerd-fonts.symbols-only  # General fallback icons set
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only # General fallback icons set
   ];
 
   # Allow unfree packages
@@ -137,65 +136,65 @@
   programs.zsh.enable = true;
 
   services.pipewire = {
-	enable = true;
-	alsa.enable = true;
-	alsa.support32Bit = true;
-	pulse.enable = true;
-	jack.enable = true;
-	};
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   services.tlp = {
-  	enable = true;
-	settings = {
-		TLP_ENABLE = 1;
-		TLP_DEFAULT_MODE = "BAL";
-		TLP_PERSISTENT_DEFAULT=0;
-		TLP_WARN_LEVEL=3;
+    enable = true;
+    settings = {
+      TLP_ENABLE = 1;
+      TLP_DEFAULT_MODE = "BAL";
+      TLP_PERSISTENT_DEFAULT = 0;
+      TLP_WARN_LEVEL = 3;
 
-		TLP_AUTO_SWITCH=2;
+      TLP_AUTO_SWITCH = 2;
 
-		TLP_PROFILE_AC="PRF";
-		TLP_PROFILE_BAT="BAL";
+      TLP_PROFILE_AC = "PRF";
+      TLP_PROFILE_BAT = "BAL";
 
-		CPU_ENERGY_PERF_POLICY_ON_AC="balance_performance";
-		CPU_ENERGY_PERF_POLICY_ON_BAT="balance_power";
-		CPU_ENERGY_PERF_POLICY_ON_SAV="power";
-		CPU_SCALING_GOVERNOR_ON_AC="performance";
-		CPU_SCALING_GOVERNOR_ON_BAT="powersave";
-		CPU_BOOST_ON_AC=1;
-		CPU_BOOST_ON_BAT=1;
-		CPU_BOOST_ON_SAV=0;
-		
-		START_CHARGE_THRESH_BAT0=0;
-		STOP_CHARGE_THRESH_BAT0=1;
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+      CPU_ENERGY_PERF_POLICY_ON_SAV = "power";
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 1;
+      CPU_BOOST_ON_SAV = 0;
 
-		RESTORE_THRESHOLDS_ON_BAT=1;
+      START_CHARGE_THRESH_BAT0 = 0;
+      STOP_CHARGE_THRESH_BAT0 = 1;
 
-		RADEON_DPM_PERF_LEVEL_ON_AC="auto";
-		RADEON_DPM_PERF_LEVEL_ON_SAV="low";
-		# RADEON_DPM_PERF_LEVEL_ON_BAT="auto";
+      RESTORE_THRESHOLDS_ON_BAT = 1;
 
-		AMDGPU_ABM_LEVEL_ON_AC=0;
-		AMDGPU_ABM_LEVEL_ON_BAT=2;
+      RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+      RADEON_DPM_PERF_LEVEL_ON_SAV = "low";
+      # RADEON_DPM_PERF_LEVEL_ON_BAT="auto";
 
-		NMI_WATCHDOG=0;
+      AMDGPU_ABM_LEVEL_ON_AC = 0;
+      AMDGPU_ABM_LEVEL_ON_BAT = 2;
 
-		WOL_DISABLE="Y";
+      NMI_WATCHDOG = 0;
 
-		PLATFORM_PROFILE_ON_AC="performance";
-		PLATFORM_PROFILE_ON_BAT="balanced";
-		PLATFORM_PROFILE_ON_SAV="low-power";
+      WOL_DISABLE = "Y";
 
-		MEM_SLEEP_ON_AC="s2idle";
-		MEM_SLEEP_ON_BAT="s2idle";
-		MEM_SLEEP_ON_SAV="deep";
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "balanced";
+      PLATFORM_PROFILE_ON_SAV = "low-power";
 
-		DEVICES_TO_ENABLE_ON_STARTUP="wifi";
-		DEVICES_TO_ENABLE_ON_AC="wifi";
+      MEM_SLEEP_ON_AC = "s2idle";
+      MEM_SLEEP_ON_BAT = "s2idle";
+      MEM_SLEEP_ON_SAV = "deep";
 
-		RUNTIME_PM_ON_AC="on";
-		RUNTIME_PM_ON_BAT="auto";
-	};
+      DEVICES_TO_ENABLE_ON_STARTUP = "wifi";
+      DEVICES_TO_ENABLE_ON_AC = "wifi";
+
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+    };
   };
 
   # Display Manager Setup
@@ -210,34 +209,37 @@
     themeOptions = {
       terraria.backgroundMode = "time";
       Genshin.backgroundMode = "time";
-      clockwork.orbital = { themeMode = "dark"; enableWindup = true; };
+      clockwork.orbital = {
+        themeMode = "dark";
+        enableWindup = true;
+      };
       osu.gameMode = "menu";
+      sddm.enable = true;
     };
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  	kitty
-	neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-	vim
+    kitty
+    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
   ];
 
-system.activationScripts.copyConfigToGit = {
-  text = ''
-    TARGET_DIR="/home/caveman/.config/nix/nixos"
+  system.activationScripts.copyConfigToGit = {
+    text = ''
+      TARGET_DIR="/home/caveman/.config/nix/nixos"
 
-    mkdir -p "$TARGET_DIR"
-    find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -not -name '.git*' -exec rm -rf {} +
-    cp -r --remove-destination /etc/nixos/. "$TARGET_DIR/"
+      mkdir -p "$TARGET_DIR"
+      find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -not -name '.git*' -exec rm -rf {} +
+      cp -r --remove-destination /etc/nixos/. "$TARGET_DIR/"
 
-    chown -R caveman:users "$TARGET_DIR"
-  '';
-  deps = [];
-};
+      chown -R caveman:users "$TARGET_DIR"
+    '';
+    deps = [];
+  };
 
-
-# virtualisation.docker.enable = false;
+  # virtualisation.docker.enable = false;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

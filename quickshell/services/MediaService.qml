@@ -13,7 +13,6 @@ Singleton {
     property bool isPlaying: false
     property int position: 0
     property int length: 0
-    property url icon: Qt.resolvedUrl("../assets/icons/music.svg")
     property string subtitle:
         hasPlayer
             ? title

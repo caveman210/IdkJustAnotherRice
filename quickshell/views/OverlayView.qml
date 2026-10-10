@@ -17,8 +17,24 @@ Item {
             return StatusManager.statusWidth
 
         switch (StatusManager.mode) {
-        case "workspace":
-            return Theme.statusWorkspaceWidth
+            case "microphone": {
+                let iconW =
+                    Math.ceil(deviceIconMetrics.advanceWidth)
+
+                let textW =
+                    Math.ceil(microphoneMetrics.advanceWidth)
+
+                let fitted =
+                    14 + iconW + 10 + textW + 14 + 20
+
+                return Math.max(
+                    fitted,
+                    Theme.statusDefaultWidth
+                )
+            }
+
+            case "workspace":
+                return Theme.statusWorkspaceWidth
         case "keyboard":
             return Theme.statusKeyboardWidth
         case "volume":
@@ -56,6 +72,17 @@ Item {
         font.pixelSize: 15
         elide: Text.ElideNone
         text: StatusManager.icon
+    }
+
+    // Microphone prompts prefix "Microphone " to the title, so they
+    // need the widest measurement of the three (title alone would
+    // fit too little and elide).
+    TextMetrics {
+        id: microphoneMetrics
+        font.pixelSize: 13
+        font.weight: Font.Medium
+        elide: Text.ElideNone
+        text: "Microphone " + StatusManager.title
     }
 
     RowLayout {
@@ -111,11 +138,21 @@ Item {
         }
 
         Text {
-            visible: StatusManager.mode === "workspace"
-            text: root.expandedMode
+            visible:
+                StatusManager.mode === "microphone" ||
+                StatusManager.mode === "workspace"
+            text: StatusManager.mode === "microphone"
+                ? "Microphone " + StatusManager.title
+                : root.expandedMode
                 ? StatusManager.title
                 : "Workspace " + StatusManager.title
-            color: Theme.textPrimary
+            // Muted reads red so the toast carries the same
+            // semantics as the notch glyph.
+            color:
+                StatusManager.mode === "microphone" &&
+                StatusManager.title === "Muted"
+                    ? Theme.danger
+                    : Theme.textPrimary
             font.pixelSize: 13
             font.weight: Font.Medium
             Layout.alignment: Qt.AlignVCenter

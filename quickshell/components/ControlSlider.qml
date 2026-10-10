@@ -2,11 +2,21 @@ import QtQuick
 
 import "../styles"
 
+// Icon is always a Nerd Font glyph for the same reason as
+// ControlCard: the old SVG recolor path (MultiEffect) is a no-op on
+// this setup, so an SVG icon would render black regardless.
 Rectangle {
     id: root
     property string icon: ""
-    property url iconSource: ""
     property real value: 0.5
+
+    // Volume and brightness icons stay dark against the light track
+    // fill and flip to textPrimary once the level drops under 10%.
+    readonly property color iconColor:
+        value < 0.1
+            ? Theme.textPrimary
+            : Theme.background
+
     signal valueChangedByUser(real value)
     signal iconClicked
     implicitWidth: 473
@@ -23,25 +33,20 @@ Rectangle {
         color: Theme.accent
     }
 
-    SvgIcon {
-        anchors.left: parent.left
-        anchors.leftMargin: 14
-        anchors.verticalCenter: parent.verticalCenter
-        visible: root.iconSource !== ""
-        source: root.iconSource
-        size: 18
-        color: Theme.background
-    }
-
     Text {
         anchors.left: parent.left
         anchors.leftMargin: 14
         anchors.verticalCenter: parent.verticalCenter
-        visible: root.iconSource === ""
         text: root.icon
         font.family: Theme.iconFont
         font.pixelSize: 18
-        color: Theme.textPrimary
+        color: root.iconColor
+
+        Behavior on color {
+            ColorAnimation {
+                duration: Theme.animationFast
+            }
+        }
     }
 
     MouseArea {

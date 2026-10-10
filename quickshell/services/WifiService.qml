@@ -69,9 +69,6 @@ Singleton {
             : (connecting
                 ? "Connecting..."
                 : "Disconnected")
-    property url svgIcon: !connected
-        ? Qt.resolvedUrl("../assets/icons/wifi-off.svg")
-        : Qt.resolvedUrl("../assets/icons/wifi.svg")
 
     // =========================================================
     // ISLAND STATE (transient only, no notification history)

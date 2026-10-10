@@ -3,10 +3,15 @@ import QtQuick.Layouts
 
 import "../styles"
 
+// Icon is always a Nerd Font glyph. The card used to take an
+// iconSource url and recolor it through an SVG image effect, but that
+// colorization silently does nothing on this setup (SVG image
+// providers don't feed the effect shader), which left every icon
+// rendering black on the dark theme. Glyphs also match the icons
+// already used by the island bar.
 Rectangle {
     id: root
     property string icon: ""
-    property url iconSource: ""
     property string title: ""
     property string subtitle: ""
     property bool active: false
@@ -33,19 +38,8 @@ Rectangle {
                 ? Theme.accent
                 : Theme.buttonBackground
 
-            SvgIcon {
-                anchors.centerIn: parent
-                visible: !!root.iconSource
-                source: root.iconSource
-                size: 18
-                color: active
-                    ? Theme.background
-                    : Theme.textPrimary
-            }
-
             Text {
                 anchors.centerIn: parent
-                visible: !root.iconSource
                 text: root.icon
                 font.family: Theme.iconFont
                 font.pixelSize: 18

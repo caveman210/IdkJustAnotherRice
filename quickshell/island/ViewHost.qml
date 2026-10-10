@@ -40,6 +40,9 @@ Item {
             case IslandState.mediaControlsMode:
                 return mediaView
 
+            case IslandState.privacyMenuMode:
+                return privacyMenuView
+
             default:
                 return IslandState.shape === IslandState.shapeNotch
                     ? notchView
@@ -91,5 +94,10 @@ Item {
     Component {
         id: mediaView
         MediaView { }
+    }
+
+    Component {
+        id: privacyMenuView
+        PrivacyMenuView { }
     }
 }

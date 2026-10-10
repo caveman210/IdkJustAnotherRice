@@ -63,6 +63,25 @@ Item {
                     font.pixelSize: 16
                 }
 
+                // Glyph already distinguishes off / on / connected,
+                // so this stays a plain readout like wifi. The pill
+                // itself is the click target for the Control Center,
+                // which holds the actual Bluetooth toggle.
+                Text {
+                    text: BluetoothService.icon
+                    color: BluetoothService.enabled
+                           ? Theme.icon
+                           : Theme.iconDisabled
+                    font.family: "JetBrainsMono Nerd Font"
+                    font.pixelSize: 16
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: Theme.animationFast
+                        }
+                    }
+                }
+
                 Row {
                     id: batteryRow
                     spacing: 6
@@ -92,6 +111,11 @@ Item {
                     }
                 }
             }
+        }
+
+        PrivacyCluster {
+            id: privacy
+            anchors.verticalCenter: parent.verticalCenter
         }
 
         Rectangle {

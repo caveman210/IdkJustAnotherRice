@@ -19,9 +19,9 @@ Singleton {
 
     property bool enabled: false
     property string subtitle: enabled ? "On" : "Off"
-    property url icon: enabled
-        ? Qt.resolvedUrl("../assets/icons/eye.svg")
-        : Qt.resolvedUrl("../assets/icons/eye-off.svg")
+    property string icon: enabled
+        ? "󰈈"
+        : "󰈉"
 
     function toggle() {
         enabled = !enabled

@@ -13,9 +13,9 @@ Singleton {
     property bool available: !CompositorService.isNiri
     property bool enabled: false
     property string subtitle: !available ? "N/A" : (enabled ? "On" : "Off")
-    property url icon: enabled
-        ? Qt.resolvedUrl("../assets/icons/moon-stars.svg")
-        : Qt.resolvedUrl("../assets/icons/moon.svg")
+    property string icon: enabled
+        ? "󰔎"
+        : "󰃞"
 
     Process {
         id: stateProcess

@@ -13,15 +13,18 @@
     qylock.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, qylock, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    qylock,
+    ...
+  } @ inputs: {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     nixosConfigurations.nixpad = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       modules = [
-        # 1. Import qylock's NixOS module directly
         qylock.nixosModules.default
-
-        # 2. Include your system configuration
         ./configuration.nix
       ];
     };

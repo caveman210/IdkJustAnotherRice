@@ -34,11 +34,12 @@ Item {
                     radius: 17
                     color: Theme.surface
 
-                    SvgIcon {
+                    Text {
                         anchors.centerIn: parent
-                        size: 18
-                        source: "../assets/icons/player-skip-back.svg"
+                        text: "󰒮"
                         color: Theme.textPrimary
+                        font.family: Theme.iconFont
+                        font.pixelSize: 18
                     }
 
                     HoverHandler {
@@ -57,14 +58,14 @@ Item {
                     radius: 21
                     color: Theme.accent
 
-                    SvgIcon {
+                    Text {
                         anchors.centerIn: parent
-                        size: 20
-                        source:
-                            MediaService.isPlaying
-                                ? "../assets/icons/player-pause.svg"
-                                : "../assets/icons/player-play.svg"
+                        text: MediaService.isPlaying
+                              ? "󰏤"
+                              : "󰐊"
                         color: Theme.background
+                        font.family: Theme.iconFont
+                        font.pixelSize: 20
                     }
 
                     HoverHandler {
@@ -86,11 +87,12 @@ Item {
                     radius: 17
                     color:  Theme.surface
 
-                    SvgIcon {
+                    Text {
                         anchors.centerIn: parent
-                        size: 18
-                        source: "../assets/icons/player-skip-forward.svg"
+                        text: "󰒭"
                         color: Theme.textPrimary
+                        font.family: Theme.iconFont
+                        font.pixelSize: 18
                     }
 
                     HoverHandler {

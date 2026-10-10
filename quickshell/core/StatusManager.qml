@@ -16,7 +16,6 @@ Singleton {
     property int statusHeight: 33
 
     function show(data) {
-        console.log("TEST osd show:", data.mode, "|", data.title)
         mode = data.mode
         icon = data.icon
         title = data.title

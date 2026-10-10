@@ -72,7 +72,7 @@ Item {
             rowSpacing: 12
 
             ControlCard {
-                iconSource: WifiService.svgIcon
+                icon: WifiService.icon
                 title: "Wi-Fi"
                 subtitle: WifiService.subtitle
                 active: WifiService.connected
@@ -80,7 +80,7 @@ Item {
             }
 
             ControlCard {
-                iconSource: BluetoothService.icon
+                icon: BluetoothService.icon
                 title: "Bluetooth"
                 subtitle: BluetoothService.subtitle
                 active: BluetoothService.enabled
@@ -88,7 +88,7 @@ Item {
             }
 
             ControlCard {
-                iconSource: MicrophoneService.icon
+                icon: MicrophoneService.icon
                 title: "Microphone"
                 subtitle: MicrophoneService.subtitle
                 active: !MicrophoneService.muted
@@ -97,7 +97,7 @@ Item {
 
             ControlCard {
                 visible: NightLightService.available
-                iconSource: NightLightService.icon
+                icon: NightLightService.icon
                 title: "Night Light"
                 subtitle: NightLightService.subtitle
                 active: NightLightService.enabled
@@ -105,7 +105,7 @@ Item {
             }
 
             ControlCard {
-                iconSource: FocusService.icon
+                icon: FocusService.icon
                 title: "Focus"
                 subtitle: FocusService.subtitle
                 active: FocusService.enabled
@@ -113,7 +113,7 @@ Item {
             }
 
             ControlCard {
-                iconSource: AutoHideService.icon
+                icon: AutoHideService.icon
                 title: "Auto-Hide"
                 subtitle: AutoHideService.subtitle
                 active: AutoHideService.enabled
@@ -121,19 +121,8 @@ Item {
             }
 
             ControlCard {
-                iconSource: MediaService.icon
-                title: "Media"
-                subtitle: MediaService.subtitle
-                active: MediaService.hasPlayer
-
-                onClicked: {
-                    IslandController.openMediaControls()
-                }
-            }
-
-            ControlCard {
                 id: shapeCard
-                iconSource: Qt.resolvedUrl("../assets/icons/pill.svg")
+                icon: "󰐂"
                 title: "Shape"
                 subtitle: IslandState.shape === IslandState.shapeNotch ? "Notch" : "Pill"
 
@@ -150,7 +139,7 @@ Item {
         }
 
         ControlSlider {
-            iconSource: AudioService.volumeIcon
+            icon: AudioService.volumeIcon
             value: AudioService.volume / 100
 
             onIconClicked: AudioService.toggleMute()
@@ -163,7 +152,7 @@ Item {
         }
 
         ControlSlider {
-            iconSource: BrightnessService.brightnessIcon
+            icon: BrightnessService.brightnessIcon
             value: BrightnessService.brightness / 100
 
             onValueChangedByUser: function(value) {

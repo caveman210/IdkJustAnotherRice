@@ -421,7 +421,7 @@ binds {
     Mod+F hotkey-overlay-title="Browse files: nautilus" { spawn "nautilus"; }
     Mod+R hotkey-overlay-title="Search applications: vicinae" { spawn-sh "vicinae toggle"; } // Some use for Copilot key
     Super+Shift+F23 hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
-    // Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "sddm --test-mode"; } : fix issues with a script ig
+    Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "qylock-lock"; }
     Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 
     // Super+Shift+F23 hotkey-overlay-title="open a file manager: yazi" { spawn "yazi"; }

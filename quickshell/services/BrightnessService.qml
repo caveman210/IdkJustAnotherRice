@@ -12,14 +12,14 @@ Singleton {
     property int brightness: 0
     property bool _osdReady: false
 
-    readonly property url brightnessIcon: {
+    readonly property string brightnessIcon: {
         if (brightness <= 25)
-            return "../assets/icons/brightness-down.svg"
+            return "󰃜"
 
         if (brightness <= 65)
-            return "../assets/icons/brightness-half.svg"
+            return "󰃞"
 
-        return "../assets/icons/brightness-full.svg"
+        return "󰃠"
     }
 
     Process {

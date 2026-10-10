@@ -4,17 +4,23 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
+import "../core"
+
 Singleton {
     id: root
     property bool muted: false
-    property url icon:
-        muted
-            ? "../assets/icons/microphone-off.svg"
-            : "../assets/icons/microphone.svg"
+
+    // Nerd Font glyph, matching the icons the island bar already uses.
+    property string icon: muted ? "󰍭" : "󰍬"
     property string subtitle:
         muted
             ? "Muted"
             : "Enabled"
+
+    // Set by toggle(), cleared by the next state read. The OSD has
+    // to wait for the refreshTimer poll or it reports the pre-toggle
+    // value back to the user.
+    property bool _osdPending: false
 
     Process {
         id: micReader
@@ -29,6 +35,11 @@ Singleton {
                 let output = text.trim()
 
                 root.muted = output.indexOf("[MUTED]") !== -1
+
+                if (root._osdPending) {
+                    root._osdPending = false
+                    root.showOsd()
+                }
             }
         }
     }
@@ -71,6 +82,23 @@ Singleton {
     function toggle() {
         micToggle.running = false
         micToggle.running = true
+
+        // Deferred: the state read below fires the toast once the
+        // new mute value is known.
+        root._osdPending = true
+    }
+
+    // Muted-while-idle leaves no persistent indicator state (the
+    // glyph hides with no stream), so the toast is the only
+    // confirmation a mute landed. Mirrors AudioService.showOsd().
+    function showOsd() {
+        StatusManager.show({
+            mode: "microphone",
+            icon: root.muted ? "󰍭" : "󰍬",
+            title: root.muted ? "Muted" : "Enabled",
+            statusWidth: 280,
+            statusHeight: 33
+        })
     }
 
     Component.onCompleted: update()

@@ -13,17 +13,17 @@ Singleton {
     property bool muted: false
     property bool _osdReady: false
 
-    readonly property url volumeIcon: {
+    readonly property string volumeIcon: {
         if (muted)
-            return "../assets/icons/volume-off.svg"
+            return "󰝟"
 
         if (volume <= 5)
-            return "../assets/icons/volume-0.svg"
+            return "󰖁"
 
         if (volume <= 40)
-            return "../assets/icons/volume-1.svg"
+            return "󰕿"
 
-        return "../assets/icons/volume-2.svg"
+        return "󰕾"
     }
 
     Process {

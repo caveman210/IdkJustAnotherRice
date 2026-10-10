@@ -42,6 +42,11 @@ QtObject {
             IslandState.wallpaperSelectorMode
     }
 
+    function openPrivacyMenu() {
+        IslandState.mode =
+            IslandState.privacyMenuMode
+    }
+
     function openMediaControls() {
         ignoreNextIslandTap()
 
@@ -77,6 +82,16 @@ QtObject {
 
         IslandState.mode =
             IslandState.controlCenterMode
+    }
+
+    function openPrivacyMenuFromRightSection() {
+        IslandState.returnToExpanded =
+            IslandState.islandPinned
+
+        IslandState.islandPinned = false
+
+        IslandState.mode =
+            IslandState.privacyMenuMode
     }
 
     // =========================================================
